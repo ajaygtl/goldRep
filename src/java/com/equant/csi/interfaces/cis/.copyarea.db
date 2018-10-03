@@ -1,0 +1,22 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi\interfaces\cis
+2
+12
+15:CISManagerHelper.java|1|1523a0de5b9|27e9|5557ad7d|0c913b480fc1441893c7cff3afcccb7b|0
+17:AbstractExtraction.java|1|1523a0de5d1|14e5|50966d5a|8b0ace34bec34fbf959cfc5af41ba7a4|0
+17:RemoteSiteCodeInfo.java|1|1523a0de5d0|1f1|128c9a32|a3f6d1d7353f4bff9b2e3afb34b2f787|0
+14:CISClientCaller.java|1|1523a0de4ae|c5e|508ac17e|da8689283b0f4ebdad31b6fe9b3d5d71|0
+11:CISConstants.java|1|1523a0de503|19fa|ef83f37a|de13488f8a264afba30242d6ddd3b8b3|0
+12:CISATMProduct.java|1|1523a0de521|3c89|e73e3fb1|fe95983d192146e29099a60fab14f10a|0
+17:TestCISCSIWorkflow.java|1|1523a0de5f7|cb6|c766c749|6470e44142ea4d8baae47c417b432723|0
+1e:DragonMigration.java_20Nov2009|1|1523a0de660|61dc|133dfd31|eeecc738a5484b4490c175014efdc171|0
+14:DragonMigration.java|1|1523a0de628|6366|c538815b|46ff57d140284d31a6162a5527357d96|0
+11:CISIPProduct.java|1|1523a0de5ba|9073|5c8bbe43|cde24d6a5d514de0b1c953c62cc689a1|0
+16:TestCISConnection.java|1|1523a0de5b9|2afc|4b202289|2d4bf6e2a5e34a759f3f8c8b1bfaadc1|0
+19:CSIExceptionReporter.java|1|1523a0de5a0|e11|120f54ba|a39ee6f4e2314e4fad43d6c875b680a4|0
+13:ExtractionFull.java|1|1523a0de5f1|7fe|e3976e49|7a7d569419c243809efaa8a0068d2d7e|0
+11:CISFRProduct.java|1|1523a0de517|3e1d|78e9b0af|1e54d7167991478e8c24a65db1c20bba|0
+15:CISMappingLoader.java|1|1523a0de524|38d4|ffd07ee9|fa9ab2d479314b07b8a7ec200e2887a9|0
+20:CISRemoteSiteCodePopulation.java|1|1523a0de50a|b49|a17647ff|8fbb63bd26084a739b199ba44aae3a3b|0
+1a:ExtractionIncremental.java|1|1523a0de5eb|86b|f1ec91d4|6cc608ab790142e3bce5c06b0a6d584a|0
+13:CISProductBase.java|1|1523a0de5d2|120c6|7269ff3|662599a5252f46f2afac3255bcdf316a|0

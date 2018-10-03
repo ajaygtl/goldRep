@@ -1,0 +1,14 @@
+ClearCase CopyAreaDB|4
+vobs\csi\config
+2
+a
+16:cis.default.properties|1|1523a0df404|57d|7ed2c5f9|ff1712ecbe94488a8995d61f77b7d695|0
+4:test|2|0|0|0|aed571c4f0d4408780d657f66eccc017|0
+15:cis.properties.sample|1|1523a0df44b|57d|7ed2c5f9|c863884c1f3d48e1ac1f1220c1843c65|0
+3:ant|2|0|0|0|9ebb2e4b831d441b92f9fa25383b0569|0
+14:cisclient.properties|1|1523a0df3bc|338|5bfdf46f|bac76a59b2014bb283db1bc9a7f03f15|0
+11:build.xml.default|1|1523a0df374|44a4|599fae27|42f509d0fd1d4f4785cf0891bd217b56|0
+8:weblogic|2|0|0|0|009ccf0f0738440ca9a6b0e3a40d8126|0
+f:Logger.conf.xml|1|1523a0df3ef|d1f|480afd8c|3ca35489c8c543d3b4bafba47487baaa|0
+e:interfacefiles|2|0|0|0|7c342f1c9ecc4a7b9235ff6b9b7c24c9|0
+2:db|2|0|0|0|2e2c4836b91d4a7e88ce13bd8a9496a2|0

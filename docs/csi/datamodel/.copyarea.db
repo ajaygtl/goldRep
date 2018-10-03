@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+vobs\csi\docs\csi\datamodel
+2
+6
+a:CSI v2.pdb|1|1523a0de861|60590|43aeb14b|3dd6ae7fce834f11b431ea82e9bffc33|0
+a:CSI v3.pdb|1|1523a0de85c|635c8|24425555|8507d6b5b2fe417c99e056c38f1f4222|0
+a:CSI v2.pdm|1|1523a0de84c|61c7e|146b8fbc|c1a7ff32cbe9420783a1355e0bbb0fbe|0
+3:sql|2|0|0|0|aed166f34adb4cf28cb2405ff1aef649|0
+a:CSI v3.pdm|1|1523a0de7cd|63717|ca89bac1|d24c1b83be624a4db8334a133abdb70e|0
+11:CSI Workspace.sws|1|1523a0de7ba|19f|3e537926|cfadbe8fb82741ec8e5adc3ab1dd164c|0

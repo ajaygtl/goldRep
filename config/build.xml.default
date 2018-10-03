@@ -1,0 +1,382 @@
+<?xml version="1.0"?>
+
+<!--
+  Ant deploy file for the Equant CSI project
++-->
+<project name="CSI" default="run" basedir=".">
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+    <property environment="env"/>
+    <!--
+      Initializes deploy environment
+    -->
+    <target name="init">
+        <pathconvert property="main.dir" targetos="unix">
+            <path path="${basedir}"/>
+        </pathconvert>
+
+        <!-- Load the {computername}.properties file, if it exists (uses the COMPUTERNAME environment variable) -->
+        <if>
+            <os family="windows"/>
+            <then>
+                <property name="computer.name" value="${env.COMPUTERNAME}"/>
+            </then>
+            <else>
+                <property name="computer.name" value="${env.HOSTNAME}"/>
+            </else>
+        </if>
+
+        <property name="machine.properties.file" value="${main.dir}/tools/${computer.name}.properties"/>
+        <if>
+          <available file="${machine.properties.file}"/>
+          <then>
+            <echo message="Loading machine-specific property overrides from ${machine.properties.file}"/>
+            <property file="${machine.properties.file}"/>
+          </then>
+          <else>
+            <echo message="NOTE: You can specify machine-specific property values in ${machine.properties.file}."/>
+          </else>
+        </if>
+
+        <!-- Load the ant.properties file, if it exists -->
+        <property name="ant.properties.file" value="${main.dir}/ant.properties"/>
+        <if>
+          <available file="${ant.properties.file}"/>
+          <then>
+            <echo message="Loading additional custom property overrides from ${ant.properties.file}"/>
+            <property file="${ant.properties.file}"/>
+          </then>
+          <else>
+            <echo message="NOTE: You can specify custom property values in ${ant.properties.file}."/>
+          </else>
+        </if>
+
+        <!-- Load the ant.properties.default file -->
+        <property name="ant.default.properties.file" value="${main.dir}/ant.properties.default"/>
+        <echo message="Loading default properties from ${ant.default.properties.file}"/>
+        <property file="${ant.default.properties.file}"/>
+
+<!--
+        <available property="properties.present" file="ant.properties"/>
+        <fail message="Please copy ant.default.properties file to ant.properties and modify settings to match your environment."
+              unless="properties.present"/>
+
+        <property file="ant.properties"/>
+-->
+
+        <property name="home.dir" value="."/>
+        <property name="config.dir" value="config"/>
+        <property name="lib.dir" value="lib"/>
+        <property name="CsiEjbName" value="CSIModule"/>
+
+        <available property="weblogic.present" file="${weblogic.dir}/server/lib/weblogic.jar"/>
+        <fail message="Unable to find BEA WebLogic in the directory ${weblogic.dir}. Please modify ant.properties file."
+              unless="weblogic.present"/>
+
+        <echo message="------------------------------------------------------------------------"/>
+        <echo message="Deploy CSI with ${ant.version}."/>
+        <echo message=" "/>
+        <echo message="WebLogic installation directory is       ${weblogic.dir}"/>
+        <echo message="------------------------------------------------------------------------"/>
+
+        <filter token="JDBC.DRIVER"   value="${jdbc.driver}"/>
+        <filter token="JDBC.URL"      value="${jdbc.url}"/>
+        <filter token="JDBC.USERNAME" value="${jdbc.username}"/>
+        <filter token="JDBC.PASSWORD" value="${jdbc.password}"/>
+
+        <filter token="WEBLOGIC.DOMAIN.NAME" value="${weblogic.domain.name}"/>
+        <filter token="WEBLOGIC.JTA.NAME" value="${weblogic.jta.name}"/>
+        <filter token="WEBLOGIC.JTA.TIMEOUT" value="${weblogic.jta.timeout}"/>
+        <filter token="WEBLOGIC.SNMPAGENT.NAME" value="${weblogic.snmpagent.name}"/>
+        <filter token="WEBLOGIC.JDBC.CONNECTIONPOOL.NAME" value="${weblogic.jdbc.connectionpool.name}"/>
+        <filter token="WEBLOGIC.JDBC.CONNECTIONPOOL.TARGETS" value="${weblogic.jdbc.connectionpool.targets}"/>
+        <filter token="WEBLOGIC.JDBC.DATASOURCE.JNDI" value="${weblogic.jdbc.datasource.jndi}"/>
+        <filter token="WEBLOGIC.JDBC.DATASOURCE.NAME" value="${weblogic.jdbc.datasource.name}"/>
+        <filter token="WEBLOGIC.JDBC.DATASOURCE.POOLNAME" value="${weblogic.jdbc.datasource.poolname}"/>
+        <filter token="WEBLOGIC.JDBC.DATASOURCE.TARGETS" value="${weblogic.jdbc.datasource.targets}"/>
+        <!-- CVS v2 -->
+        <filter token="WEBLOGIC.JDBC.CONNPOOL.INCR" value="${weblogic.jdbc.connpool.incr}"/>
+        <filter token="WEBLOGIC.JDBC.CONNPOOL.INIT" value="${weblogic.jdbc.connpool.init}"/>
+        <filter token="WEBLOGIC.JDBC.CONNPOOL.MAX" value="${weblogic.jdbc.connpool.max}"/>
+        <filter token="WEBLOGIC.JDBC.CONNPOOL.TESTONRESERVE" value="${weblogic.jdbc.connpool.testonreserve}"/>
+        <filter token="WEBLOGIC.JDBC.CONNPOOL.LEAKPROFILING" value="${weblogic.jdbc.connpool.leakprofiling}"/>
+
+
+        <filter token="WEBLOGIC.LOG.FILENAME" value="${weblogic.log.filename}"/>
+        <filter token="WEBLOGIC.LOG.NAME" value="${weblogic.log.name}"/>
+        <filter token="WEBLOGIC.SERVER.PORT" value="${weblogic.server.port}"/>
+        <filter token="WEBLOGIC.SERVER.NAME" value="${weblogic.server.name}"/>
+        <filter token="WEBLOGIC.SERVER.LOG.FILENAME" value="${weblogic.server.log.filename}"/>
+        <filter token="WEBLOGIC.SERVER.LOG.NAME" value="${weblogic.server.log.name}"/>
+        <filter token="WEBLOGIC.SERVER.SSL.PORT" value="${weblogic.server.ssl.port}"/>
+        <filter token="WEBLOGIC.SERVER.SSL.ENABLED" value="${weblogic.server.ssl.enabled}"/>
+        <filter token="WEBLOGIC.SERVER.SSL.NAME" value="${weblogic.server.ssl.name}"/>
+        <filter token="WEBLOGIC.WEBSERVER.LOGFILENAME" value="${weblogic.webserver.logfilename}"/>
+        <filter token="WEBLOGIC.WEBSERVER.NAME" value="${weblogic.webserver.name}"/>
+        <filter token="WEBLOGIC.APPLICATION.DEPLOYED.URI" value="${weblogic.application.deployed.uri}"/>
+        <filter token="WEBLOGIC.JMS.CONNECTIONFACTORY.JNDINAME" value="${weblogic.jms.connectionfactory.jndiname}"/>
+        <filter token="WEBLOGIC.JMS.CONNECTIONFACTORY.NAME" value="${weblogic.jms.connectionfactory.name}"/>
+        <filter token="WEBLOGIC.JMS.SERVER.NAME" value="${weblogic.jms.server.name}"/>
+        <filter token="WEBLOGIC.JMS.TOPIC.BASE.JNDINAME" value="${weblogic.jms.topic.base.jndiname}"/>
+        <filter token="WEBLOGIC.JMS.TOPIC.BASE.NAME" value="${weblogic.jms.topic.base.name}"/>
+        <filter token="WEBLOGIC.JMS.TOPIC.ERROR.JNDINAME" value="${weblogic.jms.topic.error.jndiname}"/>
+        <filter token="WEBLOGIC.JMS.TOPIC.ERROR.NAME" value="${weblogic.jms.topic.error.name}"/>
+
+        <filter token="COM.EQUANT.CSI.WEBLOGIC.URL" value="${com.equant.csi.weblogic.url}"/>
+        <filter token="COM.EQUANT.CSI.WEBLOGIC.CONTEXTFACTORY" value="${com.equant.csi.weblogic.contextfactory}"/>
+
+        <filter token="COM.EQUANT.CSI.SMTP.FROM" value="${com.equant.csi.logger.smtp.from}"/>
+        <filter token="COM.EQUANT.CSI.SMTP.HOST" value="${com.equant.csi.logger.smtp.host}"/>
+        <filter token="COM.EQUANT.CSI.SMTP.SUBJECT" value="${com.equant.csi.logger.smtp.subject}"/>
+        <filter token="COM.EQUANT.CSI.SMTP.TO" value="${com.equant.csi.logger.smtp.to}"/>
+
+        <path id="project.class.path">
+            <pathelement path="${weblogic.dir}/server/lib/weblogic_sp.jar"/>
+            <pathelement path="${weblogic.dir}/server/lib/weblogic.jar"/>
+            <pathelement path="${lib.dir}/ext/log4j-1.2.7.jar"/>
+            <pathelement path="${lib.dir}/ext/junit.jar"/>
+            <pathelement path="${lib.dir}/ext/jaxb-api.jar"/>
+            <pathelement path="${lib.dir}/ext/jaxb-libs.jar"/>
+            <pathelement path="${lib.dir}/ext/jaxb-ri.jar"/>
+            <pathelement path="${lib.dir}/ext/jax-qname.jar"/>
+            <pathelement path="${lib.dir}/ext/csvjdbc.jar"/>
+                        <!-- Apache/Jakarta Commons -->
+                        <pathelement path="${lib.dir}/ext/commons-collections.jar"/>
+                        <pathelement path="${lib.dir}/ext/commons-lang.jar"/>
+                        <pathelement path="${lib.dir}/ext/commons-logging.jar"/>
+                        <pathelement path="${lib.dir}/ext/commons-fileupload-1.0.jar"/>
+        </path>
+
+        <property name="weblogic.csi.home" value="${bea.home}/user_projects/domains/${weblogic.domain.name}"/>
+        <property name="weblogic.csi.lib" value="${weblogic.csi.home}/lib"/>
+        <property name="weblogic.csi.log" value="${weblogic.csi.home}/logs"/>
+
+        <mkdir dir="${weblogic.server.jms.store.dir}"/>
+    </target>
+
+    <!--
+      Start weblogic locally, using $PWD/weblogic directory
+    -->
+    <target name="run" depends="init">
+        <java classname="weblogic.Server" fork="true" dir="${home.dir}/weblogic" maxmemory="128m" failonerror="true">
+            <classpath>
+                <path refid="project.class.path"/>
+                <pathelement path="${home.dir}/csi-all.jar"/>
+                <pathelement path="${home.dir}/weblogic/license"/>
+            </classpath>
+            <jvmarg value="-Dweblogic.RootDirectory=."/>
+            <jvmarg value="-Dweblogic.management.username=${weblogic.username}"/>
+            <jvmarg value="-Dweblogic.management.password=${weblogic.password}"/>
+            <jvmarg value="-Dweblogic.management.discover=false"/>
+            <jvmarg value="-Dweblogic.Name=${weblogic.server.name}"/>
+            <jvmarg value="-Dweblogic.Domain=${weblogic.domain.name}"/>
+            <jvmarg value="-Dweblogic.ProductionModeEnabled=false"/>
+            <jvmarg value="-Djava.security.policy=${weblogic.dir}/server/lib/weblogic.policy"/>
+            <jvmarg value="-Djava.library.path=${weblogic.dir}/server/bin"/>
+        </java>
+    </target>
+
+    <!--
+      Performs unit tests
+    -->
+    <target name="test" depends="init">
+        <mkdir dir="${home.dir}/tmp"/>
+        <unjar src="${home.dir}/csi-without-ejb.jar" dest="${home.dir}/tmp">
+            <patternset>
+                <include name="**/*Test.class"/>
+                <include name="**/jaxb.properties"/>
+            </patternset>
+        </unjar>
+
+        <junit printsummary="yes" haltonfailure="yes" fork="yes" maxmemory="128m" dir="${home.dir}/weblogic">
+            <!-- WebLogic properties -->
+            <jvmarg value="-Dweblogic.RootDirectory=."/>
+            <jvmarg value="-Dweblogic.management.username=${weblogic.username}"/>
+            <jvmarg value="-Dweblogic.management.password=${weblogic.password}"/>
+            <jvmarg value="-Dweblogic.management.discover=false"/>
+            <jvmarg value="-Dweblogic.Name=${weblogic.server.name}"/>
+            <jvmarg value="-Dweblogic.Domain=${weblogic.domain.name}"/>
+            <jvmarg value="-Dweblogic.ProductionModeEnabled=false"/>
+            <jvmarg value="-Djava.security.policy=${weblogic.dir}/server/lib/weblogic.policy"/>
+            <jvmarg value="-Djava.library.path=${weblogic.dir}/server/bin"/>
+
+            <classpath>
+                <path refid="project.class.path"/>
+                <!-- Note: Only the one should be used in classpath. Either directory or jar file -->
+                <pathelement path="${home.dir}/csi-all.jar"/>
+                <pathelement path="${home.dir}/weblogic/license"/>
+                <pathelement path="${home.dir}/tmp"/>
+            </classpath>
+
+            <formatter type="plain" usefile="no"/>
+            <batchtest>
+                <fileset dir="${home.dir}/tmp">
+                    <include name="**/*Test.class"/>
+<!--                    <exclude name="**/*PerformanceTest.class"/>     -->
+<!--                    <exclude name="**/*LoadTest.class"/>            -->
+<!--                    <exclude name="**/ReleaseOrderTest.class"/>     -->
+<!--                    <exclude name="**/CsiApiTest.class"/>           -->
+<!--                    <exclude name="**/CSIBeansTest.class"/>         -->
+<!--                    <exclude name="**/CSITest.class"/>              -->
+                </fileset>
+            </batchtest>
+        </junit>
+        <delete dir="${home.dir}/tmp"/>
+    </target>
+
+    <!--
+      Copy library JAR files to $WEBLOGIC/config/$DOMAIN/lib
+    -->
+    <target name="basedeploy" depends="init">
+       <available property="weblogic.domain.present" file="${weblogic.csi.home}"/>
+       <fail message="Unable to find BEA WebLogic Domain ${weblogic.domain.name} in the directory ${weblogic.csi.home}. Please configure weblogic or modify ant.properties file."
+              unless="weblogic.domain.present"/>
+
+       <available property="weblogic.config.present" file="${weblogic.csi.home}/config.xml"/>
+       <fail message="Unable to find BEA WebLogic configuration file ${weblogic.csi.home}/config.xml in the directory ${weblogic.csi.home}. Please configure weblogic."
+              unless="weblogic.config.present"/>
+
+       <mkdir dir="${weblogic.csi.lib}"/>
+       <mkdir dir="${weblogic.csi.log}"/>
+       <mkdir dir="${weblogic.csi.log}/dragon"/>
+
+        <copy file="cis.properties"
+                tofile="${weblogic.csi.home}/cis.properties"
+                overwrite="yes" />
+
+            <exec dir="${weblogic.csi.home}"
+                    executable="chmod"
+                    failonerror="false"
+                    failifexecutionfails="false" >
+                    <arg line="755 cis.properties" />
+            </exec>
+
+       <delete file="${weblogic.csi.lib}/log4j-1.2.7.jar" failonerror="no" quiet="true" />
+       <copy todir="${weblogic.csi.lib}" overwrite="yes" failonerror="yes">
+           <fileset dir="${lib.dir}/ext">
+               <include name="log4j-1.2.9.jar"/>
+               <include name="junit.jar"/>
+               <include name="jaxb-api.jar"/>
+               <include name="jaxb-libs.jar"/>
+               <include name="jaxb-ri.jar"/>
+               <include name="jax-qname.jar"/>
+               <include name="commons-collections.jar"/>
+               <include name="commons-lang.jar"/>
+               <include name="commons-logging.jar"/>
+               <include name="commons-fileupload-1.0.jar"/>
+               <include name="jconn2.jar"/>
+               <include name="csvjdbc.jar"/>
+           </fileset>
+           <fileset dir="${home.dir}">
+               <include name="csi-without-ejb.jar"/>
+           </fileset>
+       </copy>
+   </target>
+
+    <!--
+      Deploy EJB EAR files to $WEBLOGIC/config/$DOMAIN
+    -->
+   <target name="deploy" depends="basedeploy">
+
+       <java classname="weblogic.deploy" fork="yes" failonerror="yes">
+
+           <sysproperty key="weblogic.home" value="${weblogic.dir}"/>
+           <arg line="-url http://localhost:${weblogic.server.port}"/>
+           <arg line="-component ${CsiEjbName}:${weblogic.server.name}"/>
+           <arg line="-component WebServer:${weblogic.server.name}"/>
+           <arg line="-username ${weblogic.username}"/>
+           <arg value="deploy"/>
+           <arg value="${weblogic.password}"/>
+           <arg line="csi ${home.dir}/csi.ear"/>
+           <classpath>
+               <pathelement path="${weblogic.dir}/server/lib/weblogic_sp.jar"/>
+               <pathelement path="${weblogic.dir}/server/lib/weblogic.jar"/>
+           </classpath>
+
+       </java>
+
+   </target>
+
+    <!--
+      Un-Deploy EJB EAR files to $WEBLOGIC/config/$DOMAIN
+    -->
+   <target name="undeploy" depends="basedeploy">
+
+       <java classname="weblogic.deploy" fork="yes" failonerror="yes">
+           <sysproperty key="weblogic.home" value="${weblogic.dir}"/>
+           <arg line="-url http://localhost:${weblogic.server.port}"/>
+           <arg value="undeploy"/>
+           <arg value="${weblogic.password}"/>
+           <arg line="csi"/>
+           <classpath>
+               <pathelement path="${weblogic.dir}/server/lib/weblogic_sp.jar"/>
+               <pathelement path="${weblogic.dir}/server/lib/weblogic.jar"/>
+           </classpath>
+       </java>
+
+       <java classname="weblogic.deploy" fork="yes" failonerror="yes">
+           <sysproperty key="weblogic.home" value="${weblogic.dir}"/>
+           <arg line="-url http://localhost:${weblogic.server.port}"/>
+           <arg value="delete"/>
+           <arg value="${weblogic.password}"/>
+           <arg line="csi"/>
+           <classpath>
+               <pathelement path="${weblogic.dir}/server/lib/weblogic_sp.jar"/>
+               <pathelement path="${weblogic.dir}/server/lib/weblogic.jar"/>
+           </classpath>
+       </java>
+
+   </target>
+
+    <!--
+      Re-Deploy EJB EAR files to $WEBLOGIC/config/$DOMAIN
+    -->
+   <target name="redeploy" depends="basedeploy">
+
+       <java classname="weblogic.deploy" fork="yes" failonerror="yes">
+
+           <sysproperty key="weblogic.home" value="${weblogic.dir}"/>
+           <arg line="-url http://localhost:${weblogic.server.port}"/>
+           <arg line="-component ${CsiEjbName}:${weblogic.server.name}"/>
+           <arg line="-component WebServer:${weblogic.server.name}"/>
+           <arg line="-username ${weblogic.username}"/>
+           <arg value="update"/>
+           <arg value="${weblogic.password}"/>
+           <arg line="csi ${home.dir}/csi.ear"/>
+           <classpath>
+               <pathelement path="${weblogic.dir}/server/lib/weblogic_sp.jar"/>
+               <pathelement path="${weblogic.dir}/server/lib/weblogic.jar"/>
+           </classpath>
+
+       </java>
+
+   </target>
+
+</project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

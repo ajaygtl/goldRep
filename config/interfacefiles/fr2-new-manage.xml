@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+  <Version Orderid="006227" ContractId="Standard Contract 2346" SiteId="3M Dubai" OrderSentDate="2002-09-20 10:36:15" Ordertype="New" Orderstatus="ManageOrder" customerId="2346" EndUserId="2346" ServiceId="FRAME_RELAY_PURPLE" ExchangeRate="1.0">
+    <System Id="GOLD">
+      <User Name="jyang"/></System>
+    <ServiceElement CreationDate="2002-09-20 10:36:16" Id="GO0002KKC4" ServiceElementClass="AccessConnection" Name="Primary Access Connection" Description="Primary Access Connection">
+      <Type Category="Creation"/>
+      <ServiceElementStatus date="2002-09-27 00:00:00" status="ReadyForBilling"/>
+      <ServiceElementStatus date="2002-09-27 00:00:00" status="ReadyForService"/>
+      <ServiceElementAttribute Name="Access Connection Name" Value="Primary Access Connection">
+        <OnceOffCharge Amount="20"/>
+        <RecurringCharge Amount="220"/></ServiceElementAttribute>
+      <ServiceElementAttribute Name="Circuit Type" Value="Digital Leased Line">
+        <OnceOffCharge Amount="30"/>
+        <RecurringCharge Amount="330"/></ServiceElementAttribute>
+      <ServiceElementAttribute Name="Circuit Quote Reference" Value="CQR"/>
+      <ServiceElementAttribute Name="Termination Interface" Value="V.35-DCE"/>
+      <ServiceElementAttribute Name="Circuit Speed" Value="64 Kbps"/>
+      <ServiceElementAttribute Name="Circuit Ordered by" Value="Equant"/>
+      <ServiceElementAttribute Name="Port Type" Value="Frame Relay">
+        <OnceOffCharge Amount="40"/>
+        <RecurringCharge Amount="440"/></ServiceElementAttribute>
+      <ServiceElementAttribute Name="Port Speed" Value="64 Kbps"/>
+      <ServiceElementAttribute Name="Local DNA Address" Value="DN123"/>
+      <ServiceElementAttribute Name="Local Customer Defined Code" Value="CDC-12"/>
+      <ServiceElementAttribute Name="Local User Repertory Name" Value="URN"/>
+      <ServiceElementAttribute Name="City Center Code" Value="AUHT01"/>
+      <ServiceElementAttribute Name="Node Name" Value="No"/>
+      <OnceOffCharge Amount="20"/>
+      <RecurringCharge Amount="220"/></ServiceElement>
+    <ServiceElement CreationDate="2002-09-20 10:36:16" Id="bkp-GO0002KKC4" ServiceElementClass="BackupOptions" Name="ISDN Backup Access Connection" Description="ISDN Backup Access Connection">
+      <Type Category="Creation"/>
+      <ServiceElementStatus date="2002-09-27 00:00:00" status="ReadyForBilling"/>
+      <ServiceElementStatus date="2002-09-27 00:00:00" status="ReadyForService"/>
+      <ServiceElementAttribute Name="Access Connection Name" Value="Primary Access Connection">
+        <OnceOffCharge Amount="50"/>
+        <RecurringCharge Amount="550"/></ServiceElementAttribute>
+      <ServiceElementAttribute Name="Backup Type" Value="ISDN Dial Line"/>
+      <ServiceElementAttribute Name="Speed" Value="64 Kbps"/>
+      <ServiceElementAttribute Name="Backup Line Type" Value="BRI"/>
+      <OnceOffCharge Amount="50"/>
+      <RecurringCharge Amount="550"/></ServiceElement>
+    <ServiceElement CreationDate="2002-09-20 10:36:16" Id="3M DubaiFRAME_RELAY_PURPLE" ServiceElementClass="ServiceOptions" Name="Service Management" Description="Service Management">
+      <Type Category="Creation"/>
+      <ServiceElementStatus date="2002-09-27 00:00:00" status="ReadyForBilling"/>
+      <ServiceElementStatus date="2002-09-27 00:00:00" status="ReadyForService"/>
+      <ServiceElementAttribute Name="Service Level" Value="Premium"/>
+      <ServiceElementAttribute Name="Hours of Coverage" Value="Enhanced: 24/7 Oncall Support"/>
+      <ServiceElementAttribute Name="Response Time" Value="Standard"/>
+      <ServiceElementAttribute Name="Restore Time" Value="Standard (3 hours)"/>
+      <OnceOffCharge Amount="70"/>
+      <RecurringCharge Amount="770"/></ServiceElement>
+    <ServiceElement CreationDate="2002-09-20 10:36:16" Id="GO0002KJC5" ServiceElementClass="Transport" Name="Primary PVC" Description="Primary PVC">
+      <Type Category="Creation"/>
+      <ServiceElementStatus date="2002-09-27 00:00:00" status="ReadyForBilling"/>
+      <ServiceElementStatus date="2002-09-27 00:00:00" status="ReadyForService"/>
+      <ServiceElementAttribute Name="Transport Type" Value="Primary PVC">
+        <OnceOffCharge Amount="80"/>
+        <RecurringCharge Amount="880"/></ServiceElementAttribute>
+      <ServiceElementAttribute Name="Maximum Frame Size" Value="4"/>
+      <ServiceElementAttribute Name="Local Management Interface" Value="Vendor FORUM"/>
+      <ServiceElementAttribute Name="Symmetric" Value="Symmetric PVC"/>
+      <ServiceElementAttribute Name="Billing Option" Value="Flat rate billing"/>
+      <ServiceElementAttribute Name="Local DLCI" Value="17"/>
+      <ServiceElementAttribute Name="Remote DLCI" Value="17"/>
+      <ServiceElementAttribute Name="CIR" Value="32 Kbps"/>
+      <ServiceElementAttribute Name="Burst Option" Value="Standard"/>
+      <ServiceElementAttribute Name="EIR" Value="16 Kbps"/>
+      <ServiceElementAttribute Name="Local Access Connection USID" Value="GO0002KKC4"/>
+      <ServiceElementAttribute Name="Local DNA Address" Value="DN123"/>
+      <ServiceElementAttribute Name="Local Customer Defined Code" Value="CDC-12"/>
+      <ServiceElementAttribute Name="Local User Repertory Name" Value="URN"/>
+      <ServiceElementAttribute Name="Remote Access Connection USID" Value="US001233"/>
+      <ServiceElementAttribute Name="Remote Customer Defined Code" Value="CDC0123332"/>
+      <ServiceElementAttribute Name="Remote DNA Address" Value="DN1223"/>
+      <ServiceElementAttribute Name="Remote User Repertory Name" Value="URN12223"/>
+      <ServiceElementAttribute Name="Remote Site" Value="AT - Perchtoldsdorf - Brunnerfeldstrasse 63"/>
+      <OnceOffCharge Amount="80"/>
+      <RecurringCharge Amount="880"/></ServiceElement></Version></Message>
+

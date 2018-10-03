@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<Message>
+  <Version ServiceId="FRAME_RELAY_TEST" Ordertype="New" Orderstatus="ManageOrder"
+           SubbillingAccountId="0" EndUserId="1111" customerId="1111"
+           ContractId="Test Contract 1111" Orderid="TEST-ORD-001" ExchangeRate="1.0"
+           SiteId="Test Site" OrderSentDate="2002-09-20 11:12:17">
+
+    <System Id="GOLD">
+      <User Name="tester"></User>
+    </System>
+
+    <ServiceElement Description="Test Primary Access Connection Description" Id="TEST-EL-001" ServiceElementClass="AccessConnection" CreationDate="2002-09-20 11:12:17" Name="Test Primary Access Connection">
+      <Type Category="Modification"></Type>
+      <ServiceElementAttribute Name="Port Speed" Value="64 Kbps" Status="Current"></ServiceElementAttribute>
+      <ServiceElementAttribute Name="Access Connection Name" Value="Primary Access Connection" Status="Current">
+        <OnceOffCharge Amount="10"/>
+        <RecurringCharge Amount="110"/>
+        <UsageCharge ChargeCategoryId="TST-CAT-1" ChangeTypeCode="TST-CHANGE-TYPE-1"/>
+      </ServiceElementAttribute>
+      <ServiceElementAttribute Name="Circuit Type" Value="Digital Leased Line" Status="Current">
+        <OnceOffCharge Amount="20"/>
+        <RecurringCharge Amount="220"/>
+      </ServiceElementAttribute>
+
+      <ServiceElementAttribute Name="Test Add Attribute" Value="ORD002 Added Attribute" Status="InProgressNoCurrent"></ServiceElementAttribute>
+
+      <ServiceElementAttribute Name="Port Type" Value="Frame Relay" Status="Current">
+        <OnceOffCharge Amount="30.0"></OnceOffCharge>
+        <RecurringCharge Amount="330.0"></RecurringCharge>
+      </ServiceElementAttribute>
+      <OnceOffCharge Amount="40" ChargeCategoryId="TST-CAT-40" DiscountCode="TST-DISCOUNT-40" ChangeTypeCode="TST-CHANGE-TYPE-40"/>
+      <RecurringCharge Amount="440" ChargeCategoryId="TST-CAT-440" DiscountCode="TST-DISCOUNT-440" ChangeTypeCode="TST-CHANGE-TYPE-440"/>
+    </ServiceElement>
+
+    <ServiceElement Description="Test Backup Access Connection Description" Id="TEST-EL-002" ServiceElementClass="BackupOptions" CreationDate="2002-09-20 11:12:17" Name="Test Backup Access Connection">
+      <Type Category="Modification"></Type>
+      <ServiceElementAttribute Name="Port Speed" Value="64 Kbps" Status="Current"></ServiceElementAttribute>
+      <ServiceElementAttribute Name="Access Connection Name" Value="Backup Access Connection" Status="Current">
+        <OnceOffCharge Amount="50.0"></OnceOffCharge>
+        <RecurringCharge Amount="550.0"></RecurringCharge>
+        <UsageCharge ChargeCategoryId="TST-CAT-5"/>
+      </ServiceElementAttribute>
+      <ServiceElementAttribute Name="Circuit Type" Value="Digital Leased Line" Status="Current">
+        <OnceOffCharge Amount="60.0"></OnceOffCharge>
+        <RecurringCharge Amount="660.0"></RecurringCharge>
+      </ServiceElementAttribute>
+      <ServiceElementAttribute Name="Port Type" Value="Frame Relay" Status="Current">
+        <OnceOffCharge Amount="70.0"></OnceOffCharge>
+        <RecurringCharge Amount="770.0"></RecurringCharge>
+      </ServiceElementAttribute>
+      <OnceOffCharge Amount="80"/>
+      <RecurringCharge Amount="880"/>
+    </ServiceElement>
+
+    <ServiceElement Description="Test Service Options 2 Description" Id="TEST-EL-004" ServiceElementClass="ServiceOptions" CreationDate="2002-09-20 11:12:17" Name="Test Service Options 2">
+      <Type Category="Modification"></Type>
+      <ServiceElementAttribute Name="Test Option 2" Value="Test Value 2" Status="Current">
+        <OnceOffCharge Amount="90.0"></OnceOffCharge>
+        <RecurringCharge Amount="990.0"></RecurringCharge>
+        <UsageCharge ChargeCategoryId="TST-CAT-9"/>
+      </ServiceElementAttribute>
+      <UsageCharge ChargeCategoryId="TST-CAT-200"/>
+    </ServiceElement>
+
+    <ServiceElement CreationDate="2002-09-20 10:29:34"
+                    Id="TEST-EL-005"
+                    ServiceElementClass="ServiceOptions"
+                    Name="Test Service Options 3"
+                    Description="Test Service Options 3 Description">
+      <Type Category="Modification"/>
+      <ServiceElementAttribute Name="Test Option 3" Value="Test Value 3" Status="InProgressNoCurrent">
+        <OnceOffCharge Amount="90"/>
+        <RecurringCharge Amount="990"/>
+        <UsageCharge ChargeCategoryId="TST-CAT-9"/>
+      </ServiceElementAttribute>
+      <UsageCharge ChargeCategoryId="TST-CAT-300"/>
+    </ServiceElement>
+  </Version>
+</Message>

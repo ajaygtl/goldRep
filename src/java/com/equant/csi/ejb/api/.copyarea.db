@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi\ejb\api
+2
+5
+f:CsiApiHome.java|1|1523a0dddce|3b5|c2822f4b|43f5a2bff1784fe5b7fdeef5ee8e2723|0
+c:package.html|1|1523a0de2b5|1bc|753a88d1|e992fb3763c411d7bc820060b0a3b455|0
+e:CsiApiEJB.java|1|1523a0ddaab|44d3|dbd91787|d4c03cf4f3c511e393b1000183f70fd1|0
+b:CsiApi.java|1|1523a0ddd22|1eb|d9f19c5b|e6a2fb0763c411d7bc820060b0a3b455|0
+13:CsiApiBusiness.java|1|1523a0de112|181f|64c9b1e6|cd303cecf3c511e393b1000183f70fd1|0

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+  <Version Orderid="TEST-ORD-003" ContractId="Test Contract 1111" SiteId="Test Site"
+           OrderSentDate="2002-09-20 10:53:33" Ordertype="Change" Orderstatus="ReleaseOrder"
+           customerId="1111" EndUserId="1111" ServiceId="FRAME_RELAY_TEST" ExchangeRate="1.0">
+
+    <System Id="GOLD">
+      <User Name="tester"/>
+    </System>
+
+    <ServiceElement CreationDate="2002-09-20 10:29:33" Id="TEST-EL-001"
+                    ServiceElementClass="AccessConnection"
+                    Name="Test Primary Access Connection"
+                    Description="Test Primary Access Connection Description">
+      <Type Category="Modification"/>
+
+      <!-- Modify Charges -->
+      <ServiceElementAttribute Name="Access Connection Name" Value="ORD002 Primary Access Connection">
+        <RecurringCharge Amount="300110"/>
+        <UsageCharge ChargeCategoryId="TST-CAT-1-3"/>
+      </ServiceElementAttribute>
+
+      <!-- Have to send charges! -->
+      <OnceOffCharge Amount="40"/>
+      <RecurringCharge Amount="440"/>
+    </ServiceElement>
+
+    <ServiceElement CreationDate="2002-09-20 10:29:34"
+                    Id="TEST-EL-002"
+                    ServiceElementClass="BackupOptions"
+                    Name="Test Backup Access Connection"
+                    Description="Test Backup Access Connection Description">
+      <Type Category="Modification"/>
+
+      <!-- Modify Value -->
+      <ServiceElementAttribute Name="Port Speed" Value="128 Kbps"/>
+
+      <!-- Modify -->
+      <OnceOffCharge Amount="30080"/>
+      <RecurringCharge Amount="300880"/>
+    </ServiceElement>
+  </Version>
+</Message>

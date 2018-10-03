@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi\client
+2
+9
+c:LogFile.java|1|1523a0de143|7f4|33b561a4|1e12fe6763c511d7bc820060b0a3b455|0
+11:CsiApiClient.java|1|1523a0de1df|2890|7d5aa336|37cf4836f3c711e393d0000183f70fd1|0
+12:ErrorListener.java|1|1523a0de156|9f1|1b02fcc7|1ce2fe5763c511d7bc820060b0a3b455|0
+11:ErrorReceive.java|1|1523a0de174|17cb|893b67ca|2bacb9e29b2c4f888d365d4f7dffeab6|0
+10:OrderClient.java|1|1523a0de117|22a7|9149991c|943d02fd15604a12bb1cde873a0d17f0|0
+10:CsiServices.java|1|1523a0de17e|2a48|b12bd573|2532fed763c511d7bc820060b0a3b455|0
+f:ErrorFrame.java|1|1523a0de15e|fdf|590fe9a9|2102fe9763c511d7bc820060b0a3b455|0
+10:CsiServices.form|1|1523a0de1dc|1f4c|f942dcac|24a2fec763c511d7bc820060b0a3b455|0
+f:ErrorFrame.form|1|1523a0de15e|17e2|f049788|2072fe8763c511d7bc820060b0a3b455|0

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+  <Version SiteId="CIS0000483" OrderSentDate="2003-09-25 23:00:31" Ordertype="Existing" Orderstatus="ReleaseOrder" customerId="32722" EndUserId="32722" ServiceId="ATM_GREEN">
+    <System Id="CIS">
+      <User Name="CISADM"/></System>
+    <ServiceElement Id="XN00AMY5D8" ServiceElementClass="AccessConnection" SourceSystem="CIS">
+      <Type Category="Modification"/>
+      <ServiceElementAttribute Name="In Place" Value="Use Existing"/>
+      <ServiceElementAttribute Name="Number of Circuits in IMA" Value="2"/>
+      <ServiceElementAttribute Name="IMA" Value="Yes"/>
+      <ServiceElementAttribute Name="Circuit Type" Value="Analogue Leased Line"/>
+      <ServiceElementAttribute Name="Termination Interface" Value="IMA"/>
+      <ServiceElementAttribute Name="Port Speed" Value="0.004096 Kpbs"/>
+      <ServiceElementAttribute Name="Node Name" Value="CKYN4"/>
+      <ServiceElementAttribute Name="Local Customer Defined Code" Value="NONE"/>
+      <ServiceElementAttribute Name="Local ATM Type Address" Value="000000011F4345882230000204408F20000003"/>
+      <ServiceElementAttribute Name="Circuit Ordered by" Value="Customer"/>
+      <ServiceElementAttribute Name="IMA Link Group" Value="0"/>
+      <ServiceElementAttribute Name="Circuit Speed" Value="4.096 Kpbs"/>
+      <ServiceElementAttribute Name="Local User Repertory Name" Value="KYNB32722-1"/></ServiceElement>
+    <ServiceElement Id="SO:XN00AMY5D8" ServiceElementClass="ServiceOptions" SourceSystem="CIS">
+      <Type Category="Modification"/>
+      <ServiceElementAttribute Name="ATM Profile" Value="No Standard Profile"/></ServiceElement></Version>
+  <SiteInformation CISSiteId="CIS0000483" CustCode="32722" CityCode="KYN" CountryCode="GB" PostalCode="CV34 5YA" Address1="COMMS ROOM BASEMENT WEDGENOCK LANE" CityName="WARWICK" LastModifDate="2004-03-08 23:44:45">
+    <SiteContact ContactName="NIGEL FROST" TelephoneNumber="1926 838 023" EmailAddress="nigel.frost@volvo.com"/></SiteInformation></Message>

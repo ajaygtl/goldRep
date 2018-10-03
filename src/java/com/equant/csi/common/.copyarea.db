@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi\common
+2
+6
+c:package.html|1|1523a0de1c4|212|a2a8aa18|2bc2ff3763c511d7bc820060b0a3b455|0
+17:JMSMessageConsumer.java|1|1523a0de1d6|2669|a72396a3|690887657fe9409799268aa1af00e140|0
+14:ServiceIdHolder.java|1|1523a0de266|52d|1612867f|c311caeff9794b409d1e888667cd1cef|0
+10:TransDouble.java|1|1523a0de1b9|6fc|cb072184|b22440e33a064b5ab3106a8b05f787a2|0
+11:CSIConstants.java|1|1523a0de1ad|2531|39077948|ce87148afcff475e945b2214d702e0da|0
+e:TransDate.java|1|1523a0de1a8|11c7|e2f351a9|6781d857ab4c4aa89be8e42af25aa74c|0

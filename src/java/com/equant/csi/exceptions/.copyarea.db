@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi\exceptions
+2
+9
+17:CSINestedException.java|1|1523a0de416|0|0|42d8ce7d732240b6a39c638bb3146a2b|0
+11:CSIWrongUSID.java|1|1523a0de1df|564|120ba1eb|890c8c3d1eb243898d5edf51c383a908|0
+c:package.html|1|1523a0de29d|1cd|24db902b|3382ffb763c511d7bc820060b0a3b455|0
+1d:CSIIllegalStateException.java|1|1523a0de1de|609|f65e585|1d805faa96af47519f5a540aee15dc7c|0
+1a:NoServiceElementFound.java|1|1523a0de296|603|d11de188|7c349db707604ffd8d2490484e833e20|0
+11:CSIException.java|1|1523a0de285|6c1|561817c5|ec1c4dfafc284095be0f7586804f1056|0
+22:CSINoRollbackVersionException.java|1|1523a0de43c|635|99cde4cc|00943df570104f96b1a781bbb8230964|0
+11:CISException.java|1|1523a0de3fd|2c8|e616bf36|3e27ac7ab84f4d0891a2b98ee74e4241|0
+19:CSIRollbackException.java|1|1523a0de427|54b|5cc8a5fb|5e6603774ec94c8d903e838e06cbe14c|0

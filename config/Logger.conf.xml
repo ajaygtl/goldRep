@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="null" class="org.apache.log4j.varia.NullAppender"/>
+
+    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="|%d{dd-MMM-yyyy.HH:mm:ss.SSS z}| %5p [%t] %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="R" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="File" value="@COM.EQUANT.CSI.LOGFILE@"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="|%d{dd-MMM-yyyy.HH:mm:ss.SSS z}| %5p [%t] %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="cislog" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="File" value="@COM.EQUANT.CIS.LOGFILE@"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="|%d{dd-MMM-yyyy.HH:mm:ss.SSS z}| %5p [%t] %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="timeservice" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="File" value="@COM.EQUANT.TIMESERVICE.LOGFILE@"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="|%d{dd-MMM-yyyy.HH:mm:ss.SSS z}| %5p [%t] %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="dragonlog" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="File" value="@COM.EQUANT.DRAGON.LOGFILE@"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="|%d{dd-MMM-yyyy.HH:mm:ss.SSS z}| %5p [%t] %c - %m%n"/>
+        </layout>
+    </appender>
+
+     <appender name="cissitelog" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="File" value="@COM.EQUANT.CIS.SITE.LOGFILE@"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d (%p) %c{1}(%M:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <category name="com.equant.csi">
+        <priority value="@COM.EQUANT.CSI.LOGLEVEL@"/>
+        <appender-ref ref="R"/>
+    </category>
+    <category name="cis_extraction">
+        <priority value="@COM.EQUANT.CSI.LOGLEVEL@"/>
+        <appender-ref ref="cislog"/>
+    </category>
+    <category name="timeservice">
+        <priority value="@COM.EQUANT.CSI.LOGLEVEL@"/>
+        <appender-ref ref="timeservice"/>
+    </category>
+    <category name="cis_extraction_site">
+        <priority value="@COM.EQUANT.CSI.LOGLEVEL@"/>
+        <appender-ref ref="cissitelog"/>
+    </category>
+    <category name="dragon_logger">
+        <priority value="@COM.EQUANT.CSI.LOGLEVEL@"/>
+        <appender-ref ref="dragonlog"/>
+    </category>
+
+
+    <root>
+        <priority value="@COM.EQUANT.CSI.LOGLEVEL@"/>
+        <appender-ref ref="null"/>
+    </root>
+</log4j:configuration>

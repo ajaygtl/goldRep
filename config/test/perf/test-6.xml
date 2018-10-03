@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+  <Version Orderid="TEST-ORD-006" ContractId="Test Contract 1111" SiteId="Test Site"
+           OrderSentDate="2002-09-20 11:10:14" Ordertype="Change" Orderstatus="ReleaseOrder"
+           customerId="1111" EndUserId="1111" ServiceId="FRAME_RELAY_TEST" ExchangeRate="1.0">
+    <System Id="GOLD">
+      <User Name="tester"/>
+    </System>
+
+    <!-- Create service element - again -->
+    <ServiceElement CreationDate="2002-09-20 11:10:14"
+                    Id="TEST-EL-004"
+                    ServiceElementClass="ServiceOptions"
+                    Name="Test Service Options 2"
+                    Description="Test Service Options 2 Description">
+      <Type Category="Creation"/>
+      <!-- create it with another attribute -->
+      <ServiceElementAttribute Name="Test Option 6" Value="Test Value 6">
+        <OnceOffCharge Amount="90"/>
+        <RecurringCharge Amount="990"/>
+        <UsageCharge ChargeCategoryId="TST-CAT-999"/>
+      </ServiceElementAttribute>
+      <UsageCharge ChargeCategoryId="TST-CAT-200"/>
+    </ServiceElement>
+  </Version>
+</Message>

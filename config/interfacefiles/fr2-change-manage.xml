@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+  <Version Orderid="006228" ContractId="Standard Contract 2346" SiteId="3M Dubai" OrderSentDate="2002-09-20 11:00:17" Ordertype="Existing" Orderstatus="ManageOrder" customerId="2346" EndUserId="2346" ServiceId="FRAME_RELAY_PURPLE" ExchangeRate="1.0">
+    <System Id="GOLD">
+      <User Name="jyang"/></System>
+    <ServiceElement CreationDate="2002-09-20 11:00:18" Id="GO0002KKC4" UpdatedID="GO0002KKCF" ServiceElementClass="AccessConnection" Name="Primary Access Connection" Description="Primary Access Connection">
+      <Type Category="Modification"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForBilling"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForService"/>
+      <ServiceElementAttribute Name="City Centre Code" Value="AUHT01"/>
+      <ServiceElementAttribute Name="Circuit Expected Date" Value="27-Sep-2002"/></ServiceElement></Version>
+  <Version Orderid="006228" ContractId="Standard Contract 2346" SiteId="3M Dubai" OrderSentDate="2002-09-20 11:00:18" Ordertype="Change" Orderstatus="ManageOrder" customerId="2346" EndUserId="2346" ServiceId="FRAME_RELAY_PURPLE" ExchangeRate="1.0">
+    <System Id="GOLD">
+      <User Name="jyang"/></System>
+    <ServiceElement CreationDate="2002-09-20 11:00:18" Id="GO0002KKCF" ServiceElementClass="AccessConnection" Name="Primary Access Connection" Description="Primary Access Connection">
+      <Type Category="Modification"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForBilling"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForService"/>
+      <ServiceElementAttribute Name="City Centre Code" Value="AUHA01"/>
+      <ServiceElementAttribute Name="Port Speed" Value="256 Kbps"/>
+      <ServiceElementAttribute Name="Circuit Expected Date" Value="26-Sep-2002"/></ServiceElement>
+    <ServiceElement CreationDate="2002-09-20 11:00:18" Id="bkp-GO0002KKC4" ServiceElementClass="BackupOptions" Name="BackupOptions" Description="BackupOptions">
+      <Type Category="Modification"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForBilling"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForService"/>
+      <ServiceElementAttribute Name="Backup Type" Value="PSTN Dial Line"/></ServiceElement>
+    <ServiceElement CreationDate="2002-09-20 11:00:18" Id="GO0002KJC5" ServiceElementClass="Transport" Name="Transport" Description="Transport">
+      <Type Category="Modification"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForBilling"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForService"/>
+      <ServiceElementAttribute Name="CIR" Value="48 Kbps"/></ServiceElement>
+    <ServiceElement CreationDate="2002-09-20 11:00:18" Id="3M DubaiFRAME_RELAY_PURPLE" ServiceElementClass="ServiceOptions" Name="ServiceOptions" Description="ServiceOptions">
+      <Type Category="Modification"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForBilling"/>
+      <ServiceElementStatus date="2002-09-30 00:00:00" status="ReadyForService"/>
+      <ServiceElementAttribute Name="Hours of Coverage" Value="Enhanced: 24/7 Tech Support"/></ServiceElement></Version></Message>
+

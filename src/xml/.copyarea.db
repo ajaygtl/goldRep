@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\xml
+2
+4
+b:Message.xsd|1|1523a0c6730|40fe|9c1fdec9|0f261e0ef3c211e3936b000183f70fd1|0
+1b:CSIModule-jonas-ejb-jar.xml|1|1523a0c672b|4eb|44f48a99|3535727819a64b04a0a21c4011f52cda|0
+15:CSIModule-ejb-jar.xml|1|1523a0c672b|1765|ae65c5de|f2ef766f22fb4013ba4a471180abd877|0
+b:Message.dtd|1|1523a0c672b|1cd6|98f95f20|52e91af8c49a48518c3476f9ef3a5067|0

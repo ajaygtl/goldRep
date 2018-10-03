@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi\utilities
+2
+6
+e:JAXBUtils.java|1|1523a0de4b4|15d1|693e836d|a09e43d04d644637b207c7b88d257341|0
+c:package.html|1|1523a0de4b7|1f4|c0089e4d|3da3005763c511d7bc820060b0a3b455|0
+14:JMSMessageStore.java|1|1523a0de5a6|16c4|65139193|c5bcf8b32dcc4996998c61270885ebc9|0
+12:LoggerFactory.java|1|1523a0de4b4|931|fec3d2d2|be43c3961ed047eca0aae66ff1e31abc|0
+e:JDBCUtils.java|1|1523a0de436|aa6|d29557b5|3e04c54bdf214881a99e7500a0d3b169|0
+19:PropertiesFileLoader.java|1|1523a0de436|aa2|a7ce4a18|3ed3006763c511d7bc820060b0a3b455|0

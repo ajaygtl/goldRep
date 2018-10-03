@@ -1,0 +1,14 @@
+
+<class-loader-filtering xmlns="http://org.ow2.jonas.lib.loader.mapping">
+
+ 
+   <filters>
+        <!-- Classloading filter used for jaxb1.0 jar's in application conflicting with jonas 2.0 jar's  -->
+       
+	<filter-name>com.sun.xml.bind.v2.*</filter-name>
+	<filter-name>javax.xml.bind.*</filter-name>
+	<filter-name>com.sun.xml.bind.*</filter-name>
+
+    </filters>
+
+</class-loader-filtering>

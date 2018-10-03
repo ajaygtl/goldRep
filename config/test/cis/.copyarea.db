@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+vobs\csi\config\test\cis
+2
+3
+13:test-message-01.xml|1|1523a0e0fa1|7c1|8c37650c|c78c8af3564448d5b1cb1da157c73e09|0
+13:test-message-02.xml|1|1523a0e0f9f|7fb|52227c84|8661185ab7574296b1111a6bb245dad5|0
+13:test-message-03.xml|1|1523a0e0fa4|6e7|934927fb|7465272194a7429da0d51f41d0857de8|0

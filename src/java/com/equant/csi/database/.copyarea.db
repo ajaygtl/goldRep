@@ -1,0 +1,12 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi\database
+2
+8
+10:GOLDManager.java|1|1523a0de134|33e9|fab98bd0|81a748b6683b4b35b7b9048973e5e2ef|0
+c:Manager.java|1|1523a0de0cc|1343|3275e3b1|58c165d625b84376855adabae3382f3c|0
+c:package.html|1|1523a0de134|1cb|451b8e7e|15b2fde763c511d7bc820060b0a3b455|0
+14:RollbackManager.java|1|1523a0de0c8|2502|2c541fef|d14cbe521db64aea94a67f4208f675a9|0
+11:QueryManager.java|1|1523a0de0e9|204fe|367f9d50|a757e0c1f3c611e393c4000183f70fd1|0
+12:UpdateManager.java|1|1523a0de0d9|196c9|2ef9d4e1|dea32b26cee511e4959c000183f70fd1|0
+12:DeleteManager.java|1|1523a0de0f6|6ca3|be2c6bef|7fa4ee17003111e59d22000183f70fd1|0
+12:CreateManager.java|1|1523a0de00f|f8e9|75b55bb|9cd7e0b9f3c611e393c4000183f70fd1|0

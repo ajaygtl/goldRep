@@ -1,0 +1,11 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi\test
+2
+7
+13:MessageCompare.java|1|1523a0ddfa0|3b4e|e652e50c|8811c9e8f3c411e39399000183f70fd1|0
+11:CSIBeansTest.java|1|1523a0dddb7|4dc1|8279e512|7204020cf3c511e393ac000183f70fd1|0
+16:ConnectionFactory.java|1|1523a0ddf7a|1c9b|e50dbed4|204bce22f8504f7b8b372e19d1995017|0
+c:CSITest.java|1|1523a0ddf7b|4e38|1a0b3d12|7dc10ddb30f84aa69b9e285f180c212e|0
+17:CSIPerformanceTest.java|1|1523a0ddf7b|2e2c|1e85a5b4|4d081cc800474871be56d5a7c19589d3|0
+10:CSIDataTest.java|1|1523a0de00e|2d94|1d29068b|44a9fdedf3c511e393a7000183f70fd1|0
+10:CSILoadTest.java|1|1523a0ddf7a|531|54c9b521|0932fd2763c511d7bc820060b0a3b455|0

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+  <Version Orderid="TEST-ORD-002" ContractId="Test Contract 1111" SiteId="Test Site"
+           OrderSentDate="2002-09-20 10:53:20" Ordertype="Change" Orderstatus="ReleaseOrder"
+           customerId="1111" EndUserId="1111" ServiceId="FRAME_RELAY_TEST" ExchangeRate="1.0">
+
+    <System Id="GOLD">
+      <User Name="tester"/>
+    </System>
+
+    <ServiceElement CreationDate="2002-09-20 10:29:33" Id="TEST-EL-001"
+                    ServiceElementClass="AccessConnection"
+                    Name="Test Primary Access Connection"
+                    Description="Test Primary Access Connection Description">
+      <Type Category="Modification"/>
+
+      <!-- Modify Value -->
+      <ServiceElementAttribute Name="Access Connection Name" Value="ORD002 Primary Access Connection">
+        <OnceOffCharge Amount="10"/>
+        <RecurringCharge Amount="110"/>
+        <UsageCharge ChargeCategoryId="TST-CAT-1" ChangeTypeCode="TST-CHANGE-TYPE-1"/>
+      </ServiceElementAttribute>
+
+      <!-- Modify Charges -->
+      <ServiceElementAttribute Name="Circuit Type" Value="Digital Leased Line">
+        <OnceOffCharge Amount="20020"/>
+        <RecurringCharge Amount="220"/>
+      </ServiceElementAttribute>
+
+      <!-- Add new attribute -->
+      <ServiceElementAttribute Name="Test Add Attribute" Value="ORD002 Added Attribute"/>
+
+      <!-- Have to send charges! Remove fancy attributes also. -->
+      <OnceOffCharge Amount="40"/>
+      <RecurringCharge Amount="440"/>
+    </ServiceElement>
+  </Version>
+</Message>

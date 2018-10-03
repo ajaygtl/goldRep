@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+    <SiteInformation CustCode="1" CityCode="DXB" CountryCode="AE" PostalCode="G10"
+                     StateCode="AE" Address1="3rd floor, Building" Address2="No 11, Dubai" Address3="Internet city, Dubai" CreationDate="2003-04-15 11:41:18"
+                     CityName="Dubai" LastModifDate="2004-06-15 12:00:00">
+        <SiteContact SiteId="3M" ContactName="Singh, Jaspinder" TelephoneNumber="+971-4-6089325" FaxNumber="" EmailAddress="GOLD_DEV00@EQUANT.COM" CreationDate="2003-04-15 11:41:18" LastModifDate="2004-06-15 12:00:00"/>
+        <SiteContact SiteId="3M" ContactName="No Secondary Contact Selected"/>
+    </SiteInformation>
+</Message>

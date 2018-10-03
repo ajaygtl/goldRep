@@ -1,0 +1,481 @@
+/**
+ * $IonIdea: eqt/csi/INSTALL.txt,v 1.9 2003/01/17 21:58:52 constantine.evenko Exp $
+ *
+ * CSI: Customer Service Inventory project.
+ * (c) Copyright 2002 Equant corporation.
+ */
+
+Building and Deploying the CSI (Customer Service Inventory) Application
+=====================================================================================
+
+This file provides brief instructions on how to build and deploy
+CSI on UNIX (and UNIX-like) system.
+
+
+Building CSI (Customer Service Inventory) Application
+-------------------------------------------------------------------------------------
+
+1.   Unpack the distribution and change directory:
+
+1.1. Un-tar (or winzip for Windows) eqt.csi-VERSION.tar.gz (replacing VERSION
+    with the appropriate version string).  If you are reading this file,
+    you probably have already done this!
+
+    An example:
+  % gunzip -c eqt.csi-RELEASE_2_0_BETA_2.tar.gz | tar xvf -
+
+1.2. Change directory:
+  % cd eqt.csi
+
+2.   Prerequisite software
+
+  CSI relies upon a number of software packages distributed by third
+  parties. This section details commonly needed third party software
+  packages you might have to install. Note that some of these third party
+  packages may depend on additional software packages.
+  Install each package per the installation instructions provided with it.
+
+2.1. JDK 1.3.1
+   CSI is a java based application. Please install Sun JDK 1.3.1 and
+   set up JAVA_HOME environment.
+
+2.2. WebLogic Server 6.1 with Service Pack 4
+   CSI is a J2EE application and requires WebLogic Server 6.1 with Service Pack 4
+   or above. Please install WebLogic Server 6.1 and set ant.properties variables
+
+   Weblogic 6.1 installation, configuration and domain creation is well described at:
+   http://e-docs.bea.com/wls/docs61/adminguide/index.html
+
+   In ant.properties (you can create it by copying ant.default.properties into
+   ant.properties) the following variables should be set:
+
+   bea.home - BEA home
+
+   weblogic.dir - the base location of Weblogic 6.1
+   weblogic.username - the system user (usually system), it is required for deployment
+                       and testing (default: system)
+   weblogic.password - the password of the system user.
+   weblogic.domain.name - preconfigured Weblogic domain name
+   weblogic.jta.timeout - JTA timeout (default 60)
+   weblogic.jdbc.connectionpool.name - JDBC connection pool name (default: CsiJDBCPool)
+   weblogic.jdbc.datasource.jndi - JDBC DataSource JNDI name for connection pool
+                                   (default: CsiDataSource)
+   weblogic.jdbc.datasource.name - JDBC DataSource name for connection pool
+                                   (default: MyJDBC Data Source)
+   weblogic.jdbc.datasource.poolname - JDBC datasource pool name (default: CsiJDBCPool)
+   weblogic.jdbc.connpool.incr - The increment by which the pool capacity is expanded. 
+                                 When there are no more available physical connections
+                                 to service requests, the pool will create this number
+                                 of additional physical database connections and add
+                                 them to the pool. The pool will ensure that it does
+                                 not exceed the maximum number of physical connections.
+   weblogic.jdbc.connpool.init - The number of physical database connections to create
+                                 when configuring the pool. If unable to create this 
+                                 number of connections, creation of this Connection 
+                                 Pool will fail. This is also the minimum number of 
+                                 physical connections that the pool keeps available
+   weblogic.jdbc.connpool.max -  This attribute sets maximum number of physical database 
+                                 connections that this connection pool can contain. 
+   weblogic.jdbc.connpool.testonreserve - This is attribute is used to determines if the 
+                                          connections on reserve are to be tested. When set 
+                                          to true, the WebLogic Server tests a connection 
+                                          after giving it to the client. The test adds a 
+                                          small delay in serving the client's request for 
+                                          a connection from the pool, but ensures that 
+                                          the client receives a working connection 
+                                          (assuming that the DBMS is available and accessible).
+   weblogic.jdbc.connpool.leakprofiling - This property enables JDBC Connection leak profiling. 
+                                          A Connection leak occurs when a connection from the 
+                                          pool is not closed explicitly by calling close() on 
+                                          that connection. 
+                                          When connection leak profiling is active, the pool will 
+                                          store the stack trace at the time the Connection object 
+                                          is allocated from the pool and given to the client. 
+                                          When a connection leak is detected (when the Connection 
+                                          object is garbage collected), this stack trace is reported.
+                                    Note: This feature uses extra resources and will likely slow down 
+                                          Connection Pool operations, so it is not recommended for 
+                                          production use.
+   weblogic.log.filename - weblogic domain log file (default: log/wl-domain.log)
+   weblogic.log.name - weblogic loggin facility name (default: csi)
+   weblogic.server.port - weblogic port, to which it binds (default: 7000)
+   weblogic.server.name - weblogic server name within domain (default: csiServer)
+   weblogic.server.log.filename - weblogic system log file
+   weblogic.server.ssl.port - webloigc SSL port, to which it binds (default: 8000)
+   weblogic.server.ssl.enabled - true/false, set it for SSL binding (default: false)
+   weblogic.webserver.logfilename - webserver (weblogic) log file (default: log/wl-access.log)
+   weblogic.application.deployed.uri - the name of EJB JAR file to deploy (default: CSIModule.jar)
+   weblogic.jms.connectionfactory.jndiname - JMS connection factory JNDI name (default: CsiConnectionFactory)
+   weblogic.jms.connectionfactory.name - JMS connection factory description (default: CSI JMS Connection Factory)
+   weblogic.jms.server.name - JMS server name  (default: CSI JMS Server)
+   weblogic.jms.topic.base.jndiname - JMS Topic name for GOLD submits (default: CsiGoldTopic)
+   weblogic.jms.topic.base.name - JMS Topic decrtiption for GOLD (default: CSI GOLD Topic)
+   weblogic.jms.topic.error.jndiname - JMS Topic name for error handling (default: CsiGoldErrorTopic)
+   weblogic.jms.topic.error.name - JMS Topic desctipion for error handling (default: CSI Error Topic)
+
+   com.equant.csi.weblogic.url - location of WebLogic/JMS, needed for error handling (default: t3://localhost:7000)
+   com.equant.csi.weblogic.contextfactory - WebLogic Initial Context factory class (default: weblogic.jndi.WLInitialContextFactory)
+
+2.3. Oracle 8.1.7
+   CSI uses Oracle RDBMS.  This requires a preconfigured CSI schema before testing
+   and deployment. Please configure, tune and deploy the CSI schema in Oracle.
+
+2.3.1. Create schema and database
+   This step requires an Oracle SQLPlus application installed and configured.
+   Database installation requires an empty schema created in Oracle. You can
+   create a new empty schema and install database by using schema_install.sql
+   script located in eqt.csi/src/db/ directory. An example:
+  % sqlplus /NOLOG @schema_install.sql
+
+   If you have empty schema already created in Oracle, please, use another script
+   install.sql wich will only install database within your schema. This script
+   file is also located in eqt.csi/src/db/ directory. An example:
+  % sqlplus /NOLOG @install.sql
+
+   After executing above scripts you will be prompted to enter some database
+   information (if you want to leave default value just press [Enter] without
+   typing):
+   schema_install.sql:
+   *    New User Login (default csi2): - enter new schema name here
+   *    New User Password (default csi2): - enter password for new schema here
+   *    Global Database Name: - enter database name here (SID)
+   *    Index Tablespace Name (default CSI_INDEX): - tablespace name for indexes
+   *    Default User's Tablespace Name (default CSI_DATA): - dafault tablespace name
+   you should provide DBA information in order to create new schema
+   *    DBA Login (default sys):
+   *    Password:
+
+   install.sql:
+   *    User Login (default csi2): - enter existing empty schema name here
+   *    User Password (default csi2): - enter password for this schema here
+   *    Global Database Name: - enter database name here (SID)
+   *    Index Tablespace Name (default CSI_INDEX): - tablespace name for indexes
+
+2.3.2. Set JDBC settings.
+   The CSI application uses JDBC thin driver, so Net8 service is not required.
+   Configure CSI Oracle settings in the ant.properties file.
+
+   ant.properties (you can create it by copying ant.default.properties into
+   ant.properties) variables should be set:
+
+     jdbc.driver=oracle.jdbc.driver.OracleDriver - Oracle Thin JDBC driver
+     jdbc.url= JDBC URI (default: jdbc:oracle:thin:@localhost:1522:ORCL8)
+     jdbc.username=schema user id (default: csi2)
+     jdbc.password=schema user password (default: csi2)
+
+3.   Build the application
+
+  % ./build.sh (or build.bat for Windows)
+
+   If all goes well, the Jakarta-ANT build script with automatically detect
+   the appropriate settings.  However, you may need to specify options and/or
+   environment variables to obtain desired results,
+   please copy ant.default.properties to ant.properties and modify it appropriately
+   before build.
+
+   All settings for ant.properties have been described above, except:
+      com.equant.csi.logger.smtp.isenabled - enable/disable smtp loggin
+      com.equant.csi.logger.smtp.from=email FROM: address for error notifications (default: eqt.csi.error@ionidea.com)
+      com.equant.csi.logger.smtp.host=SMTP relay for forwarding error notifications (default: 01-mta.lon.globalone.net)
+      com.equant.csi.logger.smtp.subject=email subject line for error notifications (default: CSI Error notification.)
+      com.equant.csi.logger.smtp.to=email TO: address for error notifications (default: eqt.csi.internal@ionidea.com)
+
+      com.equant.csi.logger.file.isenabled - enable/disable CSI custom loggin to the file
+      com.equant.csi.logger.jms.isenabled - enable/disable CSI JMS loggin
+
+      com.equant.csi.jms.message.couter.ttl - The Time-to-Live property for JMS message. The value 
+                                              should be specified in minutes.
+
+      com.equant.csi.jms.message.couter.maxvalue - The number of maximum tries to process JMS order. If the 
+                                                   JMS message was not successfully processed after N tries 
+                                                   or during expiration time it will be discarded.
+
+   Also you can change logging settings (log4j), file: config/Logger.conf
+
+
+4.  Test the standalone system
+
+   This step requires the standalone availability of CSI Oracle Schema and
+   Weblogic system libraries.
+
+  % ./build.sh test
+
+   If all goes well, the system will run different test scenarios. It will be
+   completed with successful built.
+   If not, return to step 2 and review your configuration settings.
+
+5.   Deploymenting the distribution
+   As result of successful build, step 3, the system will produce single
+   zip archive, which includes all necessary test, deployment scripts, libraries,
+   etc. The file will be located under "build" directory and named as "csi.tar.gz".
+   Transfer it to the deployment system or location.
+
+Deployment of CSI (Customer Service Inventory) Application
+-------------------------------------------------------------------------------------
+
+1. Unpack the built distribution and change directory:
+
+  % gunzip -c csi.tar.gz | tar xvf - (or winzip for Windows)
+        (it will be located after sucessful build in eqt.csi/build directory)
+
+2. Prerequisite software
+  2.1. JDK 1.3.1
+  2.2. WebLogic Server 6.1 with Service Pack 4
+  2.3. Oracle 8.1.7
+
+2. Setting attributes and parameters
+   % chmod +x build.sh tools/bin/ant (UNIX only)
+   check ant.properties and set any values for deploy if it differs from build.
+
+3. Deploy libraries
+  % ./build.sh basedeploy
+  It will deploy libraries under weblogic 6.1, to $WEBLOGIC/config/$CSI_DOMAIN_NAME/lib
+  and create base directory structure.
+  The domain and configuration should be done before this step and discribed in Weblogic 6.1
+  administration guide.
+
+4. Configure Weblogic 6.1. CSI Domain
+  Open weblogic/config/csi/config.xml file in build distribution and migrate settings for
+  Weblogic domain to $WEBLOGIC_HOME/config/$CSI_DOMAIN/config.xml
+  Following settings should be added to target config.xml:
+
+config.xml:
+
+  <JTA Name="csi" TimeoutSeconds="60"/>
+
+  <JDBCConnectionPool DriverName="oracle.jdbc.driver.OracleDriver"
+      Name="CsiJDBCPool"
+      Properties="user=csi2;password=csi2csi;dll=ocijdbc8;protocol=thin"
+      Targets="csiServer" URL="jdbc:oracle:thin:@golddev1:1521:CSIDEV"/>
+
+  <Log FileName="log/wl-domain.log" Name="csi"/>
+
+  <JMSTemplate Name="Temporary JMS Template"/>
+  <JMSConnectionFactory JNDIName="CsiConnectionFactory"
+        Name="CSI JMS Connection Factory" Targets="csiServer" UserTransactionsEnabled="true"/>
+
+  <JMSServer Name="CSI JMS Server" Targets="csiServer" TemporaryTemplate="Temporary JMS Template">
+      <JMSTopic JNDIName="CsiGoldTopic" Name="CSI GOLD Topic"/>
+      <JMSTopic JNDIName="CsiGoldErrorTopic" Name="CSI Error Topic"/>
+  </JMSServer>
+
+  <Server ListenPort="7000" Name="csiServer" RootDirectory="." TransactionLogFilePrefix="log/">
+      <SSL Enabled="false" ListenPort="8000" Name="csiServer"/>
+      <WebServer LogFileName="log/wl-access.log" Name="csiServer"/>
+      <Log FileName="log/wl-weblogic.log" Name="csiServer"/>
+      <ServerDebug Name="csiServer"/>
+      <KernelDebug Name="csiServer"/>
+      <ExecuteQueue Name="default" ThreadCount="15"/>
+      <ServerStart Name="csiServer"/>
+  </Server>
+
+  <JDBCDataSource JNDIName="CsiDataSource" Name="MyJDBC Data Source"
+      PoolName="CsiJDBCPool" Targets="csiServer"/>
+  <Realm FileRealm="wl_default_file_realm" Name="wl_default_realm"/>
+  <ApplicationManager Name="csi"/>
+
+
+--------
+  <Application...>
+  </Application>
+  Section should be skipped, it will be added by webloigc automatically.
+
+  Open weblogic/config/csi/startWebLogic.sh-example (or startWebLogic.cmd-example) and merge
+  library settings to $WEBLOGIC_HOME/config/$CSI_DOMAIN/start*.sh
+
+start.sh:
+#!/bin/ksh
+STARTDIR=$(pwd)
+
+# Set user-defined variables.
+# BEA_HOME=$HOME/bea
+BEA_HOME=@BEA.HOME@
+# WL_HOME=$BEA_HOME/wlserver6.1
+WL_HOME=@WEBLOGIC.HOME@
+JAVA_HOME=$BEA_HOME/jdk131
+DOM=@WEBLOGIC.DOMAIN.NAME@
+SRV=@WEBLOGIC.SERVER.NAME@
+NOHUP=nohup
+NOHUPLOG=csi-nohup.log
+WLS_PW=@WEBLOGIC.PASSWORD@
+STARTMODE=false
+
+# you should not modify anything below
+APP_HOME=$WL_HOME/config/$DOM
+APP_LOG=$APP_HOME/logs
+APP_CLASSPATH=$(echo $(ls $APP_HOME/lib/*jar $APP_HOME/lib/*.zip 2>/dev/null)|tr ' ' ':')
+SERVER_CLASSES=$APP_HOME/serverclasses
+NOHUPPATHLOG=$APP_LOG/$NOHUPLOG
+
+touch $NOHUPPATHLOG
+
+JAVACMD=java
+JAVA_OPTIONS="-ms512m -mx768m"
+
+# Check that script is being run from the appropriate directory
+if [ ! -f config.xml ]; then
+  echo "`basename $0`: must be run from the config/$DOM directory." 1>&2
+
+# Check for classes
+elif [ ! -f $WL_HOME/lib/weblogic.jar ]; then
+  echo "The weblogic.jar file was not found in directory $WL_HOME/lib." 1>&2
+
+# Check for JDK
+elif [ ! -f $JAVA_HOME/bin/javac ]; then
+  echo "The JDK wasn't found in directory $JAVA_HOME." 1>&2
+else
+  cd ../..
+
+  # Grab some file descriptors.
+  if [ "`uname -s`" != "OSF1" ]; then
+    maxfiles=`ulimit -H -n`
+  else
+    maxfiles=`ulimit -n`
+  fi
+
+  if [ !$? -a "$maxfiles" != 1024 ]; then
+    if [ "$maxfiles" = "unlimited" ]; then
+      maxfiles=1025
+    fi
+    if [ "$maxfiles" -lt 1024 ]; then
+      ulimit -n $maxfiles
+    else
+      ulimit -n 1024
+    fi
+  fi
+
+  # Figure out how to use our shared libraries
+  case `uname -s` in
+  AIX)
+    if [ -n "$LIBPATH" ]; then
+      LIBPATH=$LIBPATH:$WL_HOME/lib/aix:$WL_HOME/lib/aix/oci817_8
+    else
+      LIBPATH=$WL_HOME/lib/aix:$WL_HOME/lib/aix/oci817_8
+    fi
+    JAVA_OPTIONS="-Djava.security.auth.login.config=$WL_HOME/lib/aix/.java.login.config $JAVA_OPTIONS"
+    PATH=$WL_HOME/lib/aix:$PATH
+    export LIBPATH PATH
+    export AIXTHREAD_SCOPE=S
+    export AIXTHREAD_MUTEX_DEBUG=OFF
+    export AIXTHREAD_RWLOCK_DEBUG=OFF
+    export AIXTHREAD_COND_DEBUG=OFF
+    echo "LIBPATH=$LIBPATH"
+  ;;
+  HP-UX)
+    if [ -n "$SHLIB_PATH" ]; then
+      SHLIB_PATH=$SHLIB_PATH:$WL_HOME/lib/hpux11:$WL_HOME/lib/hpux11/oci817_8
+    else
+      SHLIB_PATH=$WL_HOME/lib/hpux11:$WL_HOME/lib/hpux11/oci817_8
+    fi
+    PATH=$WL_HOME/lib/hpux11:$PATH
+    export SHLIB_PATH PATH
+    echo "SHLIB_PATH=$SHLIB_PATH"
+  ;;
+  IRIX)
+    if [ -n "$LD_LIBRARY_PATH" ]; then
+      LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WL_HOME/lib/irix
+    else
+      LD_LIBRARY_PATH=$WL_HOME/lib/irix
+    fi
+    PATH=$WL_HOME/lib/irix:$PATH
+    export LD_LIBRARY_PATH PATH
+    echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  ;;
+  LINUX|Linux)
+    arch=`uname -m`
+    if [ -n "$LD_LIBRARY_PATH" ]; then
+      LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WL_HOME/lib/linux/$arch:$WL_HOME/lib/linux/$arch/oci817_8
+    else
+      LD_LIBRARY_PATH=$WL_HOME/lib/linux/$arch:$WL_HOME/lib/linux/$arch/oci817_8
+    fi
+    PATH=$WL_HOME/lib/linux:$PATH
+    export LD_LIBRARY_PATH PATH
+    echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  ;;
+  OSF1)
+    if [ -n "$LD_LIBRARY_PATH" ]; then
+      LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WL_HOME/lib/tru64unix:$WL_HOME/lib/tru64unix/oci817_8
+    else
+      LD_LIBRARY_PATH=$WL_HOME/lib/tru64unix:$WL_HOME/lib/tru64unix/oci817_8
+    fi
+    PATH=$WL_HOME/lib/tru64unix:$PATH
+    export LD_LIBRARY_PATH PATH
+    echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  ;;
+  SunOS)
+    if [ -n "$LD_LIBRARY_PATH" ]; then
+      LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WL_HOME/lib/solaris:$WL_HOME/lib/solaris/oci817_8
+    else
+      LD_LIBRARY_PATH=$WL_HOME/lib/solaris:$WL_HOME/lib/solaris/oci817_8
+    fi
+    PATH=$WL_HOME/lib/solaris:$PATH
+    export LD_LIBRARY_PATH PATH
+    echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+    JAVA_OPTIONS="-hotspot $JAVA_OPTIONS"
+  ;;
+  OS/390)
+    JAVA_OPTIONS="-ms128m -mx128m -Xnoargsconversion -Dfile.encoding=ISO-8859-1 -Dweblogic.NativeIOEnabled=false"
+    PATH=$WL_HOME/bin/os390:$PATH
+    JAVACMD=javacmd
+  ;;
+  *)
+    echo "$0: Don't know how to set the shared library path for `uname -s`.  "
+  esac
+
+  CLASSPATH=$WL_HOME
+  CLASSPATH=$CLASSPATH:$WL_HOME/lib/weblogic_sp.jar
+  CLASSPATH=$CLASSPATH:$WL_HOME/lib/weblogic.jar
+  CLASSPATH=$CLASSPATH:$APP_CLASSPATH
+  CLASSPATH=$CLASSPATH:$WL_HOME/ext/xmlx.zip
+
+  if [ `uname -s` = Linux -a  `uname -m` = s390 ]; then
+    CLASSPATH=$WL_HOME/lib/linux/s390/s390.jar:$CLASSPATH
+  fi
+
+  PATH=$WL_HOME/bin:$JAVA_HOME/jre/bin:$JAVA_HOME/bin:$PATH
+
+  # Set WLS_PW equal to your system password for no password prompt server startup.
+  WLS_PW=weblogic
+  export CLASSPATH
+  export PATH
+
+  {
+    echo "======================================================================================"
+    echo "* WebLogic 6.1 ($DOM) started on $(date)"
+    echo "======================================================================================"
+  } >> $NOHUPPATHLOG
+
+  # Set Production Mode.  When set to true, the server starts up in production mode.  When
+  # set to false, the server starts up in development mode.  The default is false.
+  STARTMODE=false
+  $NOHUP \
+    $JAVACMD \
+    $JAVA_OPTIONS \
+    -classpath $CLASSPATH \
+    -Dweblogic.Domain=$DOM \
+    -Dweblogic.Name=$SRV \
+    -Dbea.home=$BEA_HOME \
+    -Dweblogic.management.password=$WLS_PW \
+    -Dweblogic.ProductionModeEnabled=$STARTMODE \
+    -Djava.security.policy==$WL_HOME/lib/weblogic.policy \
+    -Dweblogic.management.discover=false \
+  weblogic.Server \
+  2>&1 >> $NOHUPPATHLOG &
+
+  cd $STARTDIR
+
+fi
+
+
+5. Run WebLogic 6.1
+  Run weblogic and check that it started successfully.
+
+6. Run deployment script
+  % ./build.sh deploy
+  It will deploy EJB application archive under Weblogic 6.1.
+
+7. (optional) undeploy & redeploy
+  % ./build.sh undeploy - will undeploy and remove EJB application archive from Weblogic 6.1
+  % ./build.sh redeploy - will redeploy EJB application archive from Weblogic 6.1
+
+End of CSI INSTALL file.

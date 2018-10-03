@@ -1,0 +1,23 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\db\extra
+2
+13
+1e:db_patch_updt_usid-v3.1.5a.sql|1|1523a0c5e9c|67a|357c702|e9cc046f788b4fdab7d240b119048ca8|0
+14:db_patch-v-3.1.7.sql|1|1523a0c5e49|60a|eb226163|3e18f34e1d2a454f94f27db2b135d713|0
+8:cr_v.sql|1|1523a0c5c3b|16d8|f1b4a4f9|7262f2d763c411d7bc820060b0a3b455|0
+c:db_patch.sql|1|1523a0c5c2a|1fa|4aeb1aa|71d2f2c763c411d7bc820060b0a3b455|0
+9:clean.sql|1|1523a0c5dd9|1f2|7937a3d4|6f62f29763c411d7bc820060b0a3b455|0
+1c:db_patch_CR_8949-v3.1.5a.sql|1|1523a0c5e48|25d|89999e61|521822264866492393192e142a00dbbe|0
+18:cis_csi_fieldmapping.sql|1|1523a0c5e19|140c8|eca8b234|ddf07777663a4a3b8089e8f2e30cf80c|0
+d:deletemgr.sql|1|1523a0c5dd7|873|3138fd73|e9a918006c564e628aff4cf9f17676af|0
+f:AUDITForQA1.trg|1|1523a0c5e93|2ca|a913e053|ff85281d1da2469e9ccb52e8308613da|0
+f:AUDITForQA2.trg|1|1523a0c5eb1|27b|976bc162|5ea744f273904e148c0d80b38ed0988d|0
+1f:CIS_CSI_VALUE_MAPPING_TABLE.csv|1|1523a0c5e1a|a0d9|22a739c5|a62258a85fd54d00b0b7e3f871edc201|0
+f:AUDITForQA3.trg|1|1523a0c5ebd|288|5425c86c|1ebdd587961c4e079264e23d5e949c76|0
+18:cis_csi_valuemapping.sql|1|1523a0c5e57|3834c|46559bc8|821f79359bb24a539f9edab4b6a1c1b4|0
+1d:db_patch_site_del-v3.1.5a.sql|1|1523a0c5ea7|8ba|dabe8802|0345af0be31243379f4164a0cc713251|0
+1c:CIS_CSI_MAPPING_TABLE_IP.csv|1|1523a0c5f04|8915|cceb1be5|c8fae7f69b204bc181e1adad7f83b608|0
+15:patch_varchar_255.sql|1|1523a0c5c18|c9b|a70db0ea|7002f2a763c411d7bc820060b0a3b455|0
+1b:cis_csi_fieldmapping_ip.sql|1|1523a0c5edb|1bd44|cbabcdae|0a7c125928664a9989e3193cb2d80fe9|0
+a:select.sql|1|1523a0c5c1e|187f|abbf4f0f|7132f2b763c411d7bc820060b0a3b455|0
+19:CIS_CSI_MAPPING_TABLE.csv|1|1523a0c5e22|34da|d1473d1c|ea327717cb1c4935a1721c2d02c6bf34|0

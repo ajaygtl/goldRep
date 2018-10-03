@@ -1,0 +1,14 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi
+2
+a
+4:jaxb|2|0|0|0|72870aa0073048bfab5a7c95e8c74702|0
+4:test|2|0|0|0|985a7a3fb75b40dc86c945c6edfa0db4|0
+a:exceptions|2|0|0|0|6313bc3c93424bb5bf2cc9831523bf8c|0
+8:weblogic|2|0|0|0|6a6ffff2b1664caba1cb31b25312423d|0
+a:interfaces|2|0|0|0|3f54162ef3a44d7993b68e76cff1ec16|0
+9:utilities|2|0|0|0|4873bfc7b0a0463c9be810420e2cd6e2|0
+6:client|2|0|0|0|2fbfed853e5a48fd97037ae45d28b1f9|0
+8:database|2|0|0|0|1cf9ede311f946fcbeb09e1bd141b1be|0
+6:common|2|0|0|0|ea85c4985e6e48958bb764f954f3414b|0
+3:ejb|2|0|0|0|98399138e15f44028408905af3d8a74e|0

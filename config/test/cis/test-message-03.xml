@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+  <Version SiteId="CIS0000493" OrderSentDate="2004-10-27 22:44:59" Ordertype="New" Orderstatus="ReleaseOrder" customerId="9594" EndUserId="9594" ServiceId="ATM_PURPLE">
+    <System Id="CIS">
+      <User Name="CISADM"/></System>
+    <ServiceElement Id="XN00B9K9EC" ServiceElementClass="AccessConnection" SourceSystem="CIS">
+      <Type Category="Creation"/>
+      <ServiceElementAttribute Name="In Place" Value="Use Existing"/>
+      <ServiceElementAttribute Name="IMA" Value="No"/>
+      <ServiceElementAttribute Name="Termination Interface" Value="E3"/>
+      <ServiceElementAttribute Name="Port Speed" Value="0.034368 Kpbs"/>
+      <ServiceElementAttribute Name="Node Name" Value="CWAW9"/>
+      <ServiceElementAttribute Name="Local Customer Defined Code" Value="069752"/>
+      <ServiceElementAttribute Name="Local ATM Type Address" Value="0000000124A045882230000104803F20000007"/>
+      <ServiceElementAttribute Name="Circuit Ordered by" Value="Customer"/>
+      <ServiceElementAttribute Name="Local User Repertory Name" Value="WAWB9594-6"/></ServiceElement>
+    <ServiceElement Id="SO:XN00B9K9EC" ServiceElementClass="ServiceOptions" SourceSystem="CIS">
+      <Type Category="Creation"/>
+      <ServiceElementAttribute Name="ATM Profile" Value="No Standard Profile"/></ServiceElement></Version>
+  <SiteInformation CISSiteId="CIS0000493" CustCode="9594" CityCode="WAW" CountryCode="PL" PostalCode="00-609" Address1="Aleja Armii Ludowej 26 Focus" Address2="Building," Address3="" CityName="Warsaw" LastModifDate="2004-03-08 23:44:45">
+    <SiteContact ContactName="KUCHARSKI, Krzysztof" TelephoneNumber="22 576 9128" EmailAddress="krzysztof.p.kucharski@gsk.com"/></SiteInformation></Message>

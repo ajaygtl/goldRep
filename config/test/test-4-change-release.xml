@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+  <Version Orderid="TEST-ORD-004" ContractId="Test Contract 1111" SiteId="Test Site"
+           OrderSentDate="2002-09-20 10:53:44" Ordertype="Existing" Orderstatus="ReleaseOrder"
+           customerId="1111" EndUserId="1111" ServiceId="FRAME_RELAY_TEST" ExchangeRate="1.0">
+    <System Id="GOLD">
+      <User Name="tester"/>
+    </System>
+
+    <!-- Delete service element -->
+    <ServiceElement CreationDate="2002-09-20 10:29:34"
+                    Id="TEST-EL-004"
+                    ServiceElementClass="ServiceOptions"
+                    Name="Test Service Options 2"
+                    Description="Test Service Options 2 Description">
+      <Type Category="Delete"/>
+    </ServiceElement>
+  </Version>
+
+  <Version Orderid="TEST-ORD-004" ContractId="Test Contract 1111" SiteId="Test Site"
+           OrderSentDate="2002-09-20 10:53:44" Ordertype="Change" Orderstatus="ReleaseOrder"
+           customerId="1111" EndUserId="1111" ServiceId="FRAME_RELAY_TEST" ExchangeRate="1.0">
+    <System Id="GOLD">
+      <User Name="tester"/>
+    </System>
+
+    <!-- Create service element -->
+    <ServiceElement CreationDate="2002-09-20 10:29:34"
+                    Id="TEST-EL-005"
+                    ServiceElementClass="ServiceOptions"
+                    Name="Test Service Options 3"
+                    Description="Test Service Options 3 Description">
+      <Type Category="Creation"/>
+      <ServiceElementAttribute Name="Test Option 3" Value="Test Value 3">
+        <OnceOffCharge Amount="90"/>
+        <RecurringCharge Amount="990"/>
+        <UsageCharge ChargeCategoryId="TST-CAT-9"/>
+      </ServiceElementAttribute>
+      <UsageCharge ChargeCategoryId="TST-CAT-300"/>
+    </ServiceElement>
+  </Version>
+</Message>

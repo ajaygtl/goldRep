@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Message>
+  <Version SiteId="CIS0011766" Orderid="TEST-ORD-001" OrderSentDate="2004-02-25 16:14:04" Ordertype="New" Orderstatus="ManageOrder" customerId="7062" EndUserId="7062" ServiceId="FRAME_RELAY_PURPLE">
+    <System Id="CIS">
+      <User Name="CISADM"/></System>
+    <ServiceElement Id="FI008SY4EE" ServiceElementClass="Transport" SourceSystem="CIS">
+      <Type Category="Modification"/>
+      <ServiceElementAttribute Name="Remote Customer Defined Code" Value="GOLD04210"/>
+      <ServiceElementAttribute Name="Remote ATM Type Address" Value="11162395060"/>
+      <ServiceElementAttribute Name="Remote Access Connection USID" Value="XN0009NF96"/>
+      <ServiceElementAttribute Name="Remote-to-Local CIR" Value="128 Kbps"/>
+      <ServiceElementAttribute Name="EIR" Value="128 Kbps"/>
+      <ServiceElementAttribute Name="CIR" Value="128 Kbps"/>
+      <ServiceElementAttribute Name="In Place" Value="Use Existing"/>
+      <ServiceElementAttribute Name="Remote User Repertory Name" Value="TRNB7062-1"/>
+      <ServiceElementAttribute Name="Remote-to-Local EIR" Value="128 Kbps"/>
+      <ServiceElementAttribute Name="Local DLCI" Value="411"/>
+      <ServiceElementAttribute Name="Local Access Connection USID" Value="FI004CSTED"/>
+      <ServiceElementAttribute Name="Remote DLCI" Value="411"/>
+      <ServiceElementAttribute Name="Remote Site" Value="UNKNOWN"/>
+      <ServiceElementAttribute Name="Remote Site Code" Value="UNKNOWN"/>
+      <ServiceElementAttribute Name="Symmetric" Value="Symmetric PVC"/>
+      <ServiceElementAttribute Name="Burst Option" Value="Premium"/></ServiceElement></Version>
+  <SiteInformation CISSiteId="CIS0011766" CustCode="7062" CityCode="LON" CountryCode="GB" PostalCode="HP7 9NA" Address1="AMERSHAM PLACE LITTLE CHALFONT" CityName="BUCKS" LastModifDate="2004-03-08 23:44:45">
+    <SiteContact ContactName="MACLARNON" TelephoneNumber="(1)494545115"/></SiteInformation></Message>

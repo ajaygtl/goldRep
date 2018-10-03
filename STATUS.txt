@@ -1,0 +1,34 @@
+
+   Known ISSUES:
+   -------------------------
+
+(01) NEW MANAGE order overrides values of any CHANGE RELEASE order.
+
+(02) It is not clear how to preserve history of order in case of (01) because of the 
+     way how NEW MANAGE order is implemented: Delete old NEW RELEASE and create new
+     NEW MANAGE. Thus, neither OrderSentDate nor CreateDate is preserved, and ordering
+     of orders is lost.
+
+(05) To keep optimal performance, CSI2 schema in the Oracle should be regularly analyzed.
+
+
+   Here are some TODO items:
+   -------------------------
+
+(11) More tests, more tests, more tests... (ALL!!!)
+     Test UpdateManager. Test Performance. Test Load.
+
+
+(14) Question:
+       Do we need verify that <Type/> has valid value for particular OrderType,
+       OrderStatus, or just do nothing and ignore invalid values?
+     Answer by Joseph:
+       If you receive an invalid  value - send a message to the error queue -
+       but accept the message anyway ignoring the erroneous service element.
+     TODO: Write table of allowed combinations of OrderType / OrderStatus / <Type/>
+
+
+(17) Ask equant why on Earth lupddate and createdate values are *not* created by CSI but taken
+     from the incoming order
+
+

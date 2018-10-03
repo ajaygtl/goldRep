@@ -1,0 +1,807 @@
+<?xml version="1.0"?>
+
+
+<!--
+  Ant build file for the Equant CSI project
++-->
+<project name="CSI" default="all" basedir=".">
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+
+    <property name="build.dir" value="build"/>
+    <property name="src.dir" value="src/java"/>
+    <property name="jaxb.xml.dir" value="src/xml"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="staging.dir" value="${build.dir}/staging"/>
+    <property name="exploded.dir" value="${build.dir}/exploded"/>
+    <property name="jonas.root" value="${jonas.root}" />
+    <property name="jonas.base" value="${jonas.base}" />
+    <property name="jonas.lib.dir" value="${jonas.root}/lib" />
+    <property environment="env"/>
+
+
+    <!--
+      Initializes build environment
+    -->
+    <target name="init">
+
+        <pathconvert property="main.dir" targetos="unix">
+            <path path="${basedir}"/>
+        </pathconvert>
+
+        <!-- Load the {computername}.properties file, if it exists (uses the COMPUTERNAME environment variable) -->
+        <if>
+            <os family="windows"/>
+            <then>
+                <property name="computer.name" value="${env.COMPUTERNAME}"/>
+            </then>
+            <else>
+                <property name="computer.name" value="${env.HOSTNAME}"/>
+            </else>
+        </if>
+
+        <property name="machine.properties.file" value="${main.dir}/tools/${computer.name}.properties"/>
+        <if>
+            <available file="${machine.properties.file}"/>
+            <then>
+                <echo message="Loading machine-specific property overrides from ${machine.properties.file}"/>
+                <property file="${machine.properties.file}"/>
+            </then>
+            <else>
+                <echo message="NOTE: You can specify machine-specific property values in ${machine.properties.file}."/>
+            </else>
+        </if>
+
+        <!-- Load the ant.properties file, if it exists -->
+        <property name="ant.properties.file" value="${main.dir}/ant.properties"/>
+        <if>
+            <available file="${ant.properties.file}"/>
+            <then>
+                <echo message="Loading additional custom property overrides from ${ant.properties.file}"/>
+                <property file="${ant.properties.file}"/>
+            </then>
+            <else>
+                <echo message="NOTE: You can specify custom property values in ${ant.properties.file}."/>
+            </else>
+        </if>
+
+        <!-- Load the ant.properties.default file -->
+        <property name="ant.default.properties.file" value="${main.dir}/ant.properties.default"/>
+        <echo message="Loading default properties from ${ant.default.properties.file}"/>
+        <property file="${ant.default.properties.file}"/>
+
+        <pathconvert property="main.dir" targetos="unix">
+            <path path="${basedir}"/>
+        </pathconvert>
+
+        <!-- Load the {computername}.properties file, if it exists (uses the COMPUTERNAME environment variable) -->
+        <if>
+            <os family="windows"/>
+            <then>
+                <property name="computer.name" value="${env.COMPUTERNAME}"/>
+            </then>
+            <else>
+                <property name="computer.name" value="${env.HOSTNAME}"/>
+            </else>
+        </if>
+
+        <property name="machine.properties.file" value="${main.dir}/tools/${computer.name}.properties"/>
+        <if>
+            <available file="${machine.properties.file}"/>
+            <then>
+                <echo message="Loading machine-specific property overrides from ${machine.properties.file}"/>
+                <property file="${machine.properties.file}"/>
+            </then>
+            <else>
+                <echo message="NOTE: You can specify machine-specific property values in ${machine.properties.file}."/>
+            </else>
+        </if>
+
+        <!-- Load the ant.properties file, if it exists -->
+        <property name="ant.properties.file" value="${main.dir}/ant.properties"/>
+        <if>
+            <available file="${ant.properties.file}"/>
+            <then>
+                <echo message="Loading additional custom property overrides from ${ant.properties.file}"/>
+                <property file="${ant.properties.file}"/>
+            </then>
+            <else>
+                <echo message="NOTE: You can specify custom property values in ${ant.properties.file}."/>
+            </else>
+        </if>
+
+        <!-- Load the ant.properties.default file -->
+        <property name="ant.default.properties.file" value="${main.dir}/ant.properties.default"/>
+        <echo message="Loading default properties from ${ant.default.properties.file}"/>
+        <property file="${ant.default.properties.file}"/>
+
+        <property name="home.dir" value="."/>
+        <property name="config.dir" value="config"/>
+        <property name="lib.dir" value="lib"/>
+        <property name="CsiEjbName" value="CsiModule"/>
+        <echo message="--------------${jonas.lib.dir}----------------------------------------------------------"/>
+        <available property="jonas.present" file="${jonas.lib.dir}/client.jar"/>
+        <fail message="Unable to find Jonas in the directory ${jonas.root}. Please modify ${ant.properties.file} file."
+              unless="jonas.present"/>
+
+        <echo message="------------------------------------------------------------------------"/>
+        <echo message="Building CSI with ${ant.version}."/>
+        <echo message=" "/>
+        <echo message="Jonas installation directory is       ${jonas.root}"/>
+        <echo message="------------------------------------------------------------------------"/>
+
+        <path id="project.class.path">
+            
+        	<pathelement location="${jonas.base}/conf" />
+        		<fileset dir="${jonas.lib.dir}">
+        		      <include name="client.jar" />
+        		 </fileset>
+        			
+            <pathelement path="${jonas.base}/lib/ext/ojdbc14.jar"/>
+            <pathelement path="${lib.dir}/ext/log4j-1.2.9.jar"/>
+            <pathelement path="${lib.dir}/ext/junit.jar"/>
+            <pathelement path="${lib.dir}/ext/jconn2.jar"/>
+            <pathelement path="${lib.dir}/ext/csvjdbc.jar"/>
+            <pathelement path="${java.home}/../lib/tools.jar"/>
+
+            <!-- JAXB 1.0 beta libraries -->
+            <pathelement path="${lib.dir}/ext/jaxb-api.jar"/>
+            <pathelement path="${lib.dir}/ext/jaxb-libs.jar"/>
+            <pathelement path="${lib.dir}/ext/jaxb-ri.jar"/>
+            <pathelement path="${lib.dir}/ext/jax-qname.jar"/>
+            <pathelement path="${lib.dir}/ext/csvjdbc.jar"/>
+
+            <!-- Apache/Jakarta Commons -->
+            <pathelement path="${lib.dir}/ext/commons-collections.jar"/>
+            <pathelement path="${lib.dir}/ext/commons-lang.jar"/>
+            <pathelement path="${lib.dir}/ext/commons-logging.jar"/>
+            <pathelement path="${lib.dir}/ext/commons-fileupload-1.0.jar"/>
+        	<!-- weblogic jar removed, added jonas start up jar in lib -->
+            <pathelement path="${lib.dir}/ext/felix-launcher.jar"/>
+        	<pathelement path="${lib.dir}/ext/jonas-commands.jar"/>
+        	        	
+        </path>
+
+        <uptodate property="jaxb.uptodate" targetfile="${src.dir}/com/equant/csi/jaxb/Message.java">
+            <srcfiles dir="${jaxb.xml.dir}" includes="Message.xsd"/>
+        </uptodate>
+
+        <filter token="JDBC.DRIVER"   value="${jdbc.driver}"/>
+        <filter token="JDBC.URL"      value="${jdbc.url}"/>
+        <filter token="JDBC.USERNAME" value="${jdbc.username}"/>
+        <filter token="JDBC.PASSWORD" value="${jdbc.password}"/>
+
+        <!--<filter token="BEA.HOME" value="${bea.home}"/>
+        <filter token="WEBLOGIC.HOME" value="${weblogic.dir}"/>
+
+        <filter token="WEBLOGIC.DOMAIN.NAME" value="${weblogic.domain.name}"/>
+        <filter token="WEBLOGIC.JTA.TIMEOUT" value="${weblogic.jta.timeout}"/>
+        <filter token="WEBLOGIC.JDBC.CONNECTIONPOOL.NAME" value="${weblogic.jdbc.connectionpool.name}"/>
+        <filter token="WEBLOGIC.JDBC.DATASOURCE.JNDI" value="${weblogic.jdbc.datasource.jndi}"/>
+        <filter token="WEBLOGIC.JDBC.DATASOURCE.NAME" value="${weblogic.jdbc.datasource.name}"/>
+        <filter token="WEBLOGIC.JDBC.DATASOURCE.POOLNAME" value="${weblogic.jdbc.datasource.poolname}"/>
+        <filter token="WEBLOGIC.LOG.FILENAME" value="${weblogic.log.filename}"/>
+        <filter token="WEBLOGIC.CSI.APPLICATION.PATH" value="${weblogic.csi.application.path}"/>-->
+
+
+        <!-- CVS v2 -->
+        <!--<filter token="WEBLOGIC.JDBC.CONNPOOL.INCR" value="${weblogic.jdbc.connpool.incr}"/>
+        <filter token="WEBLOGIC.JDBC.CONNPOOL.INIT" value="${weblogic.jdbc.connpool.init}"/>
+        <filter token="WEBLOGIC.JDBC.CONNPOOL.MAX" value="${weblogic.jdbc.connpool.max}"/>
+        <filter token="WEBLOGIC.JDBC.CONNPOOL.TESTONRESERVE" value="${weblogic.jdbc.connpool.testonreserve}"/>
+        <filter token="WEBLOGIC.JDBC.CONNPOOL.LEAKPROFILING" value="${weblogic.jdbc.connpool.leakprofiling}"/>
+        <filter token="WEBLOGIC.USERNAME" value="${weblogic.username}"/>
+        <filter token="WEBLOGIC.PASSWORD" value="${weblogic.password}"/>
+
+        <filter token="WEBLOGIC.SERVER.PORT" value="${weblogic.server.port}"/>
+        <filter token="WEBLOGIC.SERVER.NAME" value="${weblogic.server.name}"/>
+        <filter token="WEBLOGIC.SERVER.LOG.FILENAME" value="${weblogic.server.log.filename}"/>
+        <filter token="WEBLOGIC.SERVER.SSL.PORT" value="${weblogic.server.ssl.port}"/>
+        <filter token="WEBLOGIC.SERVER.SSL.ENABLED" value="${weblogic.server.ssl.enabled}"/>
+        <filter token="WEBLOGIC.WEBSERVER.LOGFILENAME" value="${weblogic.webserver.logfilename}"/>-->
+	<filter token="JONAS.APPLICATION.DEPLOYED.URI" value="${jonas.application.deployed.uri}"/>
+        <!--<filter token="WEBLOGIC.JMS.CONNECTIONFACTORY.JNDINAME" value="${weblogic.jms.connectionfactory.jndiname}"/>
+        <filter token="WEBLOGIC.JMS.CONNECTIONFACTORY.NAME" value="${weblogic.jms.connectionfactory.name}"/>
+        <filter token="WEBLOGIC.JMS.SERVER.NAME" value="${weblogic.jms.server.name}"/>
+        <filter token="WEBLOGIC.JMS.TOPIC.BASE.JNDINAME" value="${weblogic.jms.topic.base.jndiname}"/>
+        <filter token="WEBLOGIC.JMS.TOPIC.BASE.NAME" value="${weblogic.jms.topic.base.name}"/>
+        <filter token="WEBLOGIC.JMS.TOPIC.ERROR.JNDINAME" value="${weblogic.jms.topic.error.jndiname}"/>
+        <filter token="WEBLOGIC.JMS.TOPIC.ERROR.NAME" value="${weblogic.jms.topic.error.name}"/>
+
+        <filter token="WEBLOGIC.JMS.TOPIC.CSI2GOLD.JNDINAME" value="${weblogic.jms.topic.csi2gold.jndiname}"/>
+        <filter token="WEBLOGIC.JMS.TOPIC.CSI2GOLD.NAME" value="${weblogic.jms.topic.csi2gold.name}"/>
+        <filter token="WEBLOGIC.JMS.QUEUE.CSI2GOLD.NAME" value="${weblogic.jms.queue.csi2gold.name}"/>-->
+
+        <filter token="COM.EQUANT.CSI.JONAS.URL" value="${com.equant.csi.jonas.url}"/>
+        <filter token="COM.EQUANT.CSI.JONAS.CONTEXTFACTORY" value="${com.equant.csi.jonas.contextfactory}"/>
+
+        <filter token="COM.EQUANT.CSI.SMTP.ISENABLED" value="${com.equant.csi.logger.smtp.isenabled}"/>
+        <filter token="COM.EQUANT.CSI.SMTP.FROM" value="${com.equant.csi.logger.smtp.from}"/>
+        <filter token="COM.EQUANT.CSI.SMTP.HOST" value="${com.equant.csi.logger.smtp.host}"/>
+        <filter token="COM.EQUANT.CSI.SMTP.SUBJECT" value="${com.equant.csi.logger.smtp.subject}"/>
+        <filter token="COM.EQUANT.CSI.SMTP.TO" value="${com.equant.csi.logger.smtp.to}"/>
+
+        <filter token="COM.EQUANT.CSI.FILE.ISENABLED" value="${com.equant.csi.logger.file.isenabled}"/>
+        <filter token="COM.EQUANT.CSI.FILE.NAME" value="${com.equant.csi.logger.file.name}"/>
+
+        <filter token="COM.EQUANT.CSI.JMS.ISENABLED" value="${com.equant.csi.logger.jms.isenabled}"/>
+        <filter token="COM.EQUANT.CSI.JMS.MESSAGE.COUTER.TTL" value="${com.equant.csi.jms.message.couter.ttl}"/>
+        <filter token="COM.EQUANT.CSI.JMS.MESSAGE.COUTER.MAXVALUE" value="${com.equant.csi.jms.message.couter.maxvalue}"/>
+
+    	<!-- CSI ORACLE DATABASE -->
+        <filter token="JDBC.DRIVER"   value="${jdbc.driver}"/>
+        <filter token="JDBC.URL"      value="${jdbc.url}"/>
+        <filter token="JDBC.USERNAME" value="${jdbc.username}"/>
+        <filter token="JDBC.PASSWORD" value="${jdbc.password}"/>
+        <filter token="JONAS.JDBC.DATASOURCE.JNDI" value="${jonas.jdbc.datasource.jndi}"/>
+        <filter token="JONAS.JDBC.CONNPOOL.MIN" value="${jonas.jdbc.connpool.min}"/>
+        <filter token="JONAS.JDBC.CONNPOOL.MAX" value="${jonas.jdbc.connpool.max}"/>
+        <filter token="JONAS.JDBC.CONNPOOL.INIT" value="${jonas.jdbc.connpool.init}"/>
+    	
+        <!-- GOLD ORACLE DATABASE -->
+        <filter token="GOLD.JDBC.DRIVER"   value="${gold.jdbc.driver}"/>
+        <filter token="GOLD.JDBC.URL"      value="${gold.jdbc.url}"/>
+        <filter token="GOLD.JDBC.USERNAME" value="${gold.jdbc.username}"/>
+        <filter token="GOLD.JDBC.PASSWORD" value="${gold.jdbc.password}"/>
+        <filter token="JONAS.GOLD.JDBC.DATASOURCE.JNDI" value="${jonas.gold.jdbc.datasource.jndi}"/>
+        <filter token="JONAS.GOLD.JDBC.CONNPOOL.MIN" value="${jonas.gold.jdbc.connpool.min}"/>
+        <filter token="JONAS.GOLD.JDBC.CONNPOOL.MAX" value="${jonas.gold.jdbc.connpool.max}"/>
+        <filter token="JONAS.GOLD.JDBC.CONNPOOL.INIT" value="${jonas.gold.jdbc.connpool.init}"/>
+
+        <!-- CIS ORACLE DATABASE -->
+        <filter token="CIS.JDBC.DRIVER"   value="${cis.jdbc.driver}"/>
+        <filter token="CIS.JDBC.URL"      value="${cis.jdbc.url}"/>
+        <filter token="CIS.JDBC.USERNAME" value="${cis.jdbc.username}"/>
+        <filter token="CIS.JDBC.PASSWORD" value="${cis.jdbc.password}"/>
+        <filter token="JONAS.CIS.JDBC.DATASOURCE.JNDI" value="${jonas.cis.jdbc.datasource.jndi}"/>
+        <filter token="JONAS.CIS.JDBC.CONNPOOL.MAX" value="${jonas.cis.jdbc.connpool.max}"/>
+        <filter token="JONAS.CIS.JDBC.CONNPOOL.MIN" value="${jonas.cis.jdbc.connpool.min}"/>
+        <filter token="JONAS.CIS.JDBC.CONNPOOL.INIT" value="${jonas.cis.jdbc.connpool.init}"/>
+        
+        <!-- CIS Interface Settings -->
+        <filter token="COM.EQUANT.CSI.INTERFACES.CIS.CLASS" value="${com.equant.csi.interfaces.cis.class}"/>
+        <filter token="COM.EQUANT.CSI.INTERFACES.CIS.NAME" value="${com.equant.csi.interfaces.cis.name}"/>
+        <filter token="COM.EQUANT.CSI.INTERFACES.CIS.ARGS" value="${com.equant.csi.interfaces.cis.args}"/>
+        <filter token="COM.EQUANT.CSI.INTERFACES.CIS.FATAL" value="${com.equant.csi.interfaces.cis.fatal}"/>
+        <filter token="COM.EQUANT.CSI.INTERFACES.CIS.CONFIGURATION" value="${com.equant.csi.interfaces.cis.configuration}"/>
+
+        <filter token="WEBLOGIC.SERVER.JMS.STORE.NAME" value="${weblogic.server.jms.store.name}"/>
+        <filter token="WEBLOGIC.SERVER.JMS.STORE.DIR" value="${weblogic.server.jms.store.dir}"/>
+
+        <filter token="WEBLOGIC.SERVER.JMS.REDELIVERYDELAYOVERRIDE" value="${weblogic.server.jms.redeliverydelayoverride}"/>
+        <filter token="WEBLOGIC.SERVER.JMS.REDELIVERYLIMIT" value="${weblogic.server.jms.redeliverylimit}"/>
+
+        <!-- CSI Log4j Level -->
+        <filter token="COM.EQUANT.CSI.LOGLEVEL" value="${com.equant.csi.loglevel}"/>
+        <filter token="COM.EQUANT.CSI.LOGFILE" value="${com.equant.csi.logfile}"/>
+        <filter token="COM.EQUANT.CIS.LOGFILE" value="${com.equant.cis.logfile}"/>
+        <filter token="COM.EQUANT.CIS.SITE.LOGFILE" value="${com.equant.cis.site.logfile}"/>
+        <filter token="COM.EQUANT.TIMESERVICE.LOGFILE" value="${com.equant.timeservice.logfile}"/>
+        <filter token="COM.EQUANT.DRAGON.LOGFILE" value="${com.equant.dragon.logfile}"/>
+    </target>
+
+    <!--
+      Removes all generated classes
+    -->
+    <target name="clean">
+        <delete dir="${classes.dir}"/>
+        <delete dir="${staging.dir}"/>
+        <delete dir="${exploded.dir}"/>
+        <delete dir="${build.dir}"/>
+        <delete>
+            <fileset dir="${src.dir}/com/equant/csi/jaxb">
+                <exclude name="CVS/*.*"/>
+                <exclude name=".cvsignore"/>
+            </fileset>
+        </delete>
+        <delete dir="logs"/>
+    </target>
+
+    <!--
+      Copies EJB descriptor into build directory
+    -->
+    <target name="prepare" depends="init">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${staging.dir}"/>
+        <mkdir dir="${exploded.dir}"/>
+        <mkdir dir="logs"/>
+        <mkdir dir="logs/dragon"/>
+
+        <copy todir="${classes.dir}" filtering="on" overwrite="yes">
+            <fileset dir="${config.dir}">
+                <include name="Logger.conf.xml"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!--
+      Generates JAXB code
+    -->
+
+    <target name="jaxb.init" depends="prepare">
+        <!-- Precompile TransDate class to add it into XJC classpath. -->
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" debug="on" deprecation="${com.java.compiler.deprecation}">
+            <classpath refid="project.class.path"/>
+            <include name="**/TransDate.java"/>
+            <include name="**/TransDouble.java"/>
+        </javac>
+
+        <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+            <classpath>
+            	  <!--  <path refid="project.class.path"/> -->
+                <pathelement path="${lib.dir}/ext/jaxb-xjc.jar"/>
+                <pathelement path="${lib.dir}/ext/log4j-1.2.9.jar"/>
+                <pathelement path="${classes.dir}"/>
+            </classpath>
+        </taskdef>
+    </target>
+
+    <target name="jaxb.generate" depends="jaxb.init" unless="jaxb.uptodate">
+        <xjc schema="${jaxb.xml.dir}/Message.xsd" target="${src.dir}" package="com.equant.csi.jaxb"/>
+    </target>
+
+    <target name="jonas.config" depends="prepare">
+        <mkdir dir="${staging.dir}/jonas"/>
+        <mkdir dir="${staging.dir}/jonas/csi"/>
+        <mkdir dir="${staging.dir}/jonas/${jonas.server.jms.store.dir}"/>
+        <mkdir dir="${staging.dir}/interfacefiles"/>
+        <mkdir dir="${staging.dir}/test"/>
+
+        	<copy todir="${staging.dir}/jonas" filtering="off" overwrite="yes">
+            <fileset dir="${config.dir}/weblogic">
+                <exclude name="config/csi/application.xml.default"/>
+                <exclude name="config/csi/Oracle1.properties.default"/>
+                <exclude name="config/csi/Oracle2.properties.default"/>
+                <exclude name="config/csi/Oracle3.properties.default"/>
+                <exclude name="config/csi/db_access_cis/jonas-ra.xml.default"/>
+                <exclude name="config/csi/db_access_csi/jonas-ra.xml.default"/>
+                <exclude name="config/csi/db_access_gold/jonas-ra.xml.default"/>
+            </fileset>
+        </copy>
+        <copy
+                file="${config.dir}/weblogic/config/csi/application.xml.default"
+                tofile="${staging.dir}/jonas/config/csi/application.xml"
+        	filtering="on"
+                overwrite="yes"
+        />
+    	<copy
+    	       file="${config.dir}/weblogic/config/csi/classloader-filtering.xml"
+    	       tofile="${staging.dir}/jonas/config/csi/classloader-filtering.xml"
+    	       filtering="on"
+	       overwrite="yes"
+    	        />
+
+        <copy todir="${staging.dir}/interfacefiles" filtering="off">
+            <fileset dir="${config.dir}/interfacefiles">
+                <include name="*.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="${staging.dir}/test" filtering="off">
+            <fileset dir="${config.dir}/test">
+                <include name="*.xml"/>
+            </fileset>
+        </copy>
+    	<copy
+                file="${config.dir}/weblogic/config/csi/Oracle1.properties.default"
+                tofile="${staging.dir}/jonas/config/csi/Oracle1.properties"
+                filtering="on"
+                overwrite="yes"
+    	/>
+    	
+    	<copy
+                file="${config.dir}/weblogic/config/csi/Oracle2.properties.default"
+                tofile="${staging.dir}/jonas/config/csi/Oracle2.properties"
+                filtering="on"
+                overwrite="yes"
+    	/>
+    	<copy
+                file="${config.dir}/weblogic/config/csi/Oracle3.properties.default"
+                tofile="${staging.dir}/jonas/config/csi/Oracle3.properties"
+                filtering="on"
+                overwrite="yes"
+    	/>
+    	<copy
+                file="${config.dir}/weblogic/config/csi/db_access_cis/jonas-ra.xml.default"
+                tofile="${staging.dir}/jonas/config/csi/db_access_cis/jonas-ra.xml"
+                filtering="on"
+                overwrite="yes"
+		/>
+        <jar destfile="${staging.dir}/jonas/config/csi/db_access_cis.rar">
+            <metainf dir="${staging.dir}/jonas/config/csi/db_access_cis" includes="jonas-ra.xml" />
+        </jar>
+    	
+    	<copy
+                file="${config.dir}/weblogic/config/csi/db_access_csi/jonas-ra.xml.default"
+                tofile="${staging.dir}/jonas/config/csi/db_access_csi/jonas-ra.xml"
+                filtering="on"
+                overwrite="yes"
+		/>
+        <jar destfile="${staging.dir}/jonas/config/csi/db_access_csi.rar">
+            <metainf dir="${staging.dir}/jonas/config/csi/db_access_csi" includes="jonas-ra.xml" />
+        </jar>
+    	<copy
+                file="${config.dir}/weblogic/config/csi/db_access_gold/jonas-ra.xml.default"
+                tofile="${staging.dir}/jonas/config/csi/db_access_gold/jonas-ra.xml"
+                filtering="on"
+                overwrite="yes"
+		/>
+        <jar destfile="${staging.dir}/jonas/config/csi/db_access_gold.rar">
+            <metainf dir="${staging.dir}/jonas/config/csi/db_access_gold" includes="jonas-ra.xml" />
+        </jar>
+
+        <mkdir dir="${staging.dir}/jonas/logs"/>
+        <mkdir dir="${staging.dir}/jonas/logs/dragon"/>
+
+    </target>
+
+
+    <!--
+      Compiles source code
+    -->
+    <target name="compile" depends="prepare,jaxb.generate,jonas.config">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" debug="on" deprecation="${com.java.compiler.deprecation}">
+            <classpath refid="project.class.path"/>
+            <exclude name="com/equant/csi/client/**"/>
+            <!-- Should not exclude because needs for testing exclude name="com/equant/csi/test/**"/-->
+            <!-- <exclude name="com/equant/csi/test/CSIBeansTest.java"/> -->
+            <exclude name="com/equant/csi/test/CSILoadTest.java"/>
+            <exclude name="com/equant/csi/test/CSIPerformanceTest.java"/>
+            <exclude name="com/equant/csi/test/CSITest.java"/>
+        </javac>
+        <copy file="${src.dir}/com/equant/csi/jaxb/jaxb.properties" todir="${classes.dir}/com/equant/csi/jaxb"/>
+        <copy file="${src.dir}/com/equant/csi/jaxb/bgm.ser" todir="${classes.dir}/com/equant/csi/jaxb"/>
+    </target>
+
+    <target name="build.exploded.webserver" description="Build exploded directory for module 'WebServer'">
+      <!--copy file="site/WebServer/WEB-INF/weblogic.xml" tofile="${exploded.dir}/WEB-INF/weblogic.xml"/>
+      <copy file="site/WebServer/WEB-INF/web.xml" tofile="${exploded.dir}/WEB-INF/web.xml"/!-->
+      <copy todir="${exploded.dir}/WEB-INF">
+        <fileset dir="site/WebServer/WEB-INF"/>
+      </copy>
+      <copy todir="${exploded.dir}/">
+        <fileset dir="site/WebServer/resources"/>
+      </copy>
+    </target>
+
+    <!--
+      Creates csi-all.jar
+    -->
+    <target name="package" depends="compile">
+        <jar jarfile="${staging.dir}/csi-all.jar">
+            <fileset dir="${classes.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </jar>
+        <!-- Pack another jar without EJB classes that should be used in ejbc target -->
+        <!-- instead of complete jar file to avoid WARNING messages witch in some  -->
+        <!-- cases break the building. -->
+        <jar jarfile="${staging.dir}/csi-without-ejb.jar">
+            <fileset dir="${classes.dir}">
+                <exclude name="com/equant/csi/ejb/api/**"/>
+                <exclude name="com/equant/csi/ejb/jms/**"/>
+                <exclude name="com/equant/csi/ejb/biz/*.html"/>
+                <!--<exclude name="com/equant/csi/ejb/biz/ServiceManager.class"/>-->
+                <exclude name="com/equant/csi/ejb/biz/ServiceManagerEJB.class"/>
+                <!--<exclude name="com/equant/csi/ejb/biz/ServiceManagerHome.class"/>-->
+            </fileset>
+        </jar>
+        <!-- Pack another jar without EJB business classes that should be used in GOLD -->
+        <jar jarfile="${staging.dir}/csi-remote.jar">
+            <fileset dir="${classes.dir}">
+                <include name="com/equant/csi/ejb/api/CsiApi.class"/>
+                <include name="com/equant/csi/ejb/api/CsiApiHome.class"/>
+                <include name="com/equant/csi/ejb/api/CsiApiBusiness.class"/>
+                <include name="com/equant/csi/exceptions/**"/>
+            </fileset>
+        </jar>
+
+        <!-- Pack WebServer -->
+        <antcall target="build.exploded.webserver"/>
+        <jar jarfile="${staging.dir}/WebServer.war">
+            <fileset dir="${exploded.dir}">
+                <include name="**"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <!--
+	Generates CsiModule ejb-jar file
+    -->
+    
+    <taskdef name="ejbjar" classname="org.ow2.jonas.ant.EjbJar" classpath="${jonas.root}/lib/common/ow_jonas_ant.jar" />
+	<target name="ejbc" description="Build and deploy the ejb-jar file" depends="compile">
+	    <ejbjar srcdir="${classes.dir}" descriptordir="${jaxb.xml.dir}" destdir="${staging.dir}">
+	    	<classpath>
+                <path refid="project.class.path"/>
+                <pathelement path="${build.dir}/staging/csi-without-ejb.jar"/>
+            </classpath>
+	    	<jonas destdir="${staging.dir}" jonasroot="${jonas.root}" jonasbase="${jonas.base}" protocols="irmi" />
+	    	<include name="*-ejb-jar.xml"/>
+	    	<exclude name="*-jonas-ejb-jar.xml"/>
+	    </ejbjar>
+	</target>
+
+    <target name="database.clean.all" depends="init" unless="noclean.csi.data">
+        <sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}">
+            <classpath>
+                <path refid="project.class.path"/>
+            </classpath>
+
+            delete from CChargeChangeItem;
+            commit;
+
+            delete from CRecurringCharge;
+            commit;
+
+            delete from CUsageCharge;
+            commit;
+
+            delete from COnceOffCharge;
+            commit;
+
+            delete from CServiceChangeItem;
+            commit;
+
+            delete from CServiceAttribute;
+            commit;
+
+            delete from CVersionServiceElementSts;
+            commit;
+
+            delete from CVersionServiceElement;
+            commit;
+
+            delete from CServiceElement;
+            commit;
+
+            delete from TestTable;
+            commit;
+
+            delete from CVersion;
+            commit;
+
+            delete from CSystemUser;
+            commit;
+
+        </sql>
+    </target>
+    <!--
+      Performs unit tests
+    -->
+    <target name="test" depends="package, ejbc, database.clean.all">
+        <junit printsummary="yes" haltonfailure="no" fork="yes" maxmemory="512m" dir="${staging.dir}/weblogic">
+            <!-- jvmarg value="-Djaxb.debug=on"/ -->
+            <!-- WebLogic properties -->
+            <jvmarg value="-Dweblogic.RootDirectory=."/>
+            <jvmarg value="-Dweblogic.management.username=${weblogic.username}"/>
+            <jvmarg value="-Dweblogic.management.password=${weblogic.password}"/>
+            <jvmarg value="-Dweblogic.management.discover=false"/>
+            <jvmarg value="-Dweblogic.Name=${weblogic.server.name}"/>
+            <jvmarg value="-Dweblogic.Domain=${weblogic.domain.name}"/>
+            <jvmarg value="-Dweblogic.ProductionModeEnabled=false"/>
+            <jvmarg value="-Djava.security.policy=${weblogic.dir}/server/lib/weblogic.policy"/>
+            <jvmarg value="-Djava.library.path=${weblogic.dir}/server/bin"/>
+
+            <classpath>
+                <path refid="project.class.path"/>
+                <pathelement path="${staging.dir}/csi-all.jar"/>
+                <!-- FIXME: Upgrade JAXB and replace classes.dir with csi-all.jar -->
+                <!--pathelement path="${classes.dir}"/-->
+                <pathelement path="${staging.dir}/weblogic/license"/>
+            </classpath>
+
+            <formatter type="plain" usefile="no"/>
+            <batchtest unless="noclean.csi.data">
+                <fileset dir="${classes.dir}">
+                    <include name="**/CSIBeansTest.class"/>
+                </fileset>
+            </batchtest>
+            <batchtest if="noclean.csi.data">
+                <fileset dir="${classes.dir}">
+                    <include name="**/CSIDataTest.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="test-cis" depends="package, ejbc, database.clean.all">
+        <junit printsummary="yes" haltonfailure="no" fork="yes" maxmemory="512m" dir="${staging.dir}/weblogic">
+            <!-- jvmarg value="-Djaxb.debug=on"/ -->
+            <!-- WebLogic properties -->
+            <jvmarg value="-Dweblogic.RootDirectory=."/>
+            <jvmarg value="-Dweblogic.management.username=${weblogic.username}"/>
+            <jvmarg value="-Dweblogic.management.password=${weblogic.password}"/>
+            <jvmarg value="-Dweblogic.management.discover=false"/>
+            <jvmarg value="-Dweblogic.Name=${weblogic.server.name}"/>
+            <jvmarg value="-Dweblogic.Domain=${weblogic.domain.name}"/>
+            <jvmarg value="-Dweblogic.ProductionModeEnabled=false"/>
+            <jvmarg value="-Djava.security.policy=${weblogic.dir}/server/lib/weblogic.policy"/>
+            <jvmarg value="-Djava.library.path=${weblogic.dir}/server/bin"/>
+
+            <classpath>
+                <path refid="project.class.path"/>
+                <pathelement path="${staging.dir}/csi-all.jar"/>
+                <pathelement path="${lib.dir}/ext/csvjdbc.jar"/>
+                <!-- FIXME: Upgrade JAXB and replace classes.dir with csi-all.jar -->
+                <!--pathelement path="${classes.dir}"/-->
+                <pathelement path="${staging.dir}/weblogic/license"/>
+            </classpath>
+
+            <formatter type="plain" usefile="no"/>
+            <batchtest>
+                <fileset dir="${classes.dir}">
+                    <include name="**/CIS2CSITest.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+    <!-- Experimental: Start with OptimizeIt Profiler -->
+    <target name="test-profile" depends="package, ejbc">
+        <java classname="intuitive.audit.Audit" fork="yes" maxmemory="64m" dir="${staging.dir}/weblogic">
+
+            <!-- jvmarg value="-classic"/ -->
+            <jvmarg value="-Xrunpri"/>
+            <jvmarg value="-Xnoclassgc"/>
+            <!-- jvmarg value="-Djava.compiler=NONE"/ -->
+            <jvmarg value="-Djava.library.path=${weblogic.dir}/server/bin"/>
+
+            <arg value="-port"/>
+            <arg value="1470"/>
+            <arg value="-noexit"/>
+            <arg value="junit.textui.TestRunner"/>
+            <arg value="com.equant.csi.test.CSIPerformanceTest"/>
+
+            <classpath>
+                <pathelement path="C:/Java/OptimizeitSuite/OptimizeitSuite41/lib/optit.jar"/>
+                <pathelement path="${staging.dir}/csi-all.jar"/>
+                <pathelement path="${lib.dir}/ext/csvjdbc.jar"/>
+                <path refid="project.class.path"/>
+                <pathelement path="${classes.dir}"/>
+                <pathelement path="${staging.dir}/weblogic/license"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!--
+      Start weblogic
+    -->
+    <target name="run" depends="package, ejbc">
+        <java classname="weblogic.Server" fork="true" dir="${staging.dir}/weblogic" maxmemory="256m" failonerror="true">
+            <classpath>
+                <path refid="project.class.path"/>
+                <!--                <pathelement path="${build.dir}/staging/csi-all.jar"/>-->
+                <pathelement path="${build.dir}/staging/csi-without-ejb.jar"/>
+                <pathelement path="${staging.dir}/weblogic/license"/>
+            </classpath>
+
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xnoagent"/>
+            <jvmarg value="-Djava.compiler=NONE"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8585"/>
+            <!--jvmarg value="-Xrunjdwp:transport=dt_shmem,server=y,suspend=n,address=CSI30"/-->
+
+            <jvmarg value="-Dweblogic.RootDirectory=."/>
+            <jvmarg value="-Dweblogic.management.username=${weblogic.username}"/>
+            <jvmarg value="-Dweblogic.management.password=${weblogic.password}"/>
+            <jvmarg value="-Dweblogic.management.discover=false"/>
+            <jvmarg value="-Dweblogic.Name=${weblogic.server.name}"/>
+            <jvmarg value="-Dweblogic.Domain=${weblogic.domain.name}"/>
+            <jvmarg value="-Dweblogic.ProductionModeEnabled=false"/>
+
+            <jvmarg value="-Djava.security.policy=${weblogic.dir}/server/lib/weblogic.policy"/>
+            <jvmarg value="-Djava.library.path=${weblogic.dir}/server/bin"/>
+        </java>
+    </target>
+
+    <!--
+      Creates csi.jar
+    -->
+	
+	
+	<target name="copyjar" depends="package, ejbc">
+	             <copy todir="${staging.dir}/lib">
+	    	            <fileset dir="${home.dir}/lib/ext">
+	    	            <include name="log4j-1.2.9.jar"/>
+	    	            <include name="junit.jar"/>
+	    	            <include name="jaxb-api.jar"/>
+	    	            <include name="jaxb-libs.jar"/>
+	    	            <include name="jaxb-ri.jar"/>
+	    	            <include name="jax-qname.jar"/>
+	    	            <include name="csvjdbc.jar"/>
+	    	            <include name="commons-collections.jar"/>
+	    	            <include name="commons-lang.jar"/>
+	    	            <include name="commons-logging.jar"/>
+	    	            <include name="commons-fileupload-1.0.jar"/>
+	    	            <include name="jconn2.jar"/>
+	    	            <include name="ojdbc14.jar"/>
+	    	           </fileset>
+	                <fileset dir="${staging.dir}">
+	                    <include name="csi-without-ejb.jar"/>
+	                	<include name="csi-remote.jar"/>
+	                </fileset>
+	    	       </copy>
+	     	</target>
+	
+	
+<target name="all" depends="package, ejbc,copyjar">
+
+        <copy todir="${staging.dir}/libr/ext">
+            <fileset dir="${home.dir}/lib/ext">
+                <include name="log4j-1.2.9.jar"/>
+                <include name="junit.jar"/>
+                <include name="jaxb-api.jar"/>
+                <include name="jaxb-libs.jar"/>
+                <include name="jaxb-ri.jar"/>
+                <include name="jax-qname.jar"/>
+                <include name="csvjdbc.jar"/>
+                <include name="commons-collections.jar"/>
+                <include name="commons-lang.jar"/>
+                <include name="commons-logging.jar"/>
+                <include name="commons-fileupload-1.0.jar"/>
+                <include name="jconn2.jar"/>
+            </fileset>
+        </copy>
+
+        <jar destfile="${staging.dir}/csi.ear">
+            <metainf dir="${staging.dir}/jonas/config/csi" includes="application.xml" />
+            <metainf dir="${staging.dir}/jonas/config/csi" includes="classloader-filtering.xml" />
+        	
+            <fileset dir="${staging.dir}">
+                <include name="CSIModule.jar"/>
+                <include name="WebServer.war"/>
+            </fileset>
+        	<fileset dir="${staging.dir}">
+        	 <include name="lib/**"/>
+        	</fileset>
+        	
+            <manifest>
+                <attribute name="Built-By" value="IonIdea, Inc."/>
+            </manifest>
+        </jar>
+
+        <copy todir="${staging.dir}">
+            <fileset dir="${home.dir}">
+                <include name="ant*properties"/>
+            </fileset>
+            <fileset dir="${home.dir}">
+                <include name="tools/**"/>
+                <include name="build.bat"/>
+                <include name="build.sh"/>
+            </fileset>
+        </copy>
+
+        <copy file="${config.dir}/build.xml.default"
+            tofile="${staging.dir}/build.xml" 
+        	overwrite="yes" />
+    	
+    	<copy file="${config.dir}/cis.default.properties"
+    	      tofile="${staging.dir}/cis.properties"
+    	      overwrite="yes" />
+    	
+        <!--
+          Fix UNIX permissions
+        -->
+        <chmod file="${staging.dir}/build.sh" perm="ugo+x"/>
+        <chmod file="${staging.dir}/tools/bin/ant" perm="ugo+x"/>
+
+        <zip basedir="${staging.dir}" zipfile="${build.dir}/csi.zip"
+             includes="**,**/*.*">
+        </zip>
+
+        <!--
+          UNIX
+        -->
+        <tar destfile="${build.dir}/csi.tar.gz" basedir="${staging.dir}" compression="gzip"/>
+    </target>
+
+
+    <target name="testjaxbutil" depends="package, ejbc">
+        <java classname="com.equant.csi.utilities.JAXBUtils" fork="true" dir="${staging.dir}/weblogic" maxmemory="128m" failonerror="true">
+            <classpath>
+                <path refid="project.class.path"/>
+                <pathelement path="${build.dir}/staging/csi-all.jar"/>
+                <pathelement path="${staging.dir}/weblogic/license"/>
+            </classpath>
+            <arg value="P:/csi_30_dev.1/csi/config/test/test-1-new-release.xml"/>
+        </java>
+    </target>
+</project>

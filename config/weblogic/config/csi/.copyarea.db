@@ -1,0 +1,18 @@
+ClearCase CopyAreaDB|4
+vobs\csi\config\weblogic\config\csi
+2
+e
+1a:Oracle2.properties.default|1|1523a0e4f0c|63f|6f3b1263|a414c3f295e54231854879ee97edd711|0
+1a:Oracle1.properties.default|1|1523a0e4f0b|65b|898c19be|2c5c7461d8514608951bf47e09032f3c|0
+1d:DefaultCredentialMapper.ldift|1|1523a0e4ef2|409|11f7685e|358c031a0eab420a89812ec2b79c4532|0
+1b:DefaultAuthorizerInit.ldift|1|1523a0e4ec9|eb9|b647f626|c2372aa87db6414baf263f04d14c650e|0
+17:application.xml.default|1|1523a0e4eef|1fb|10c8a01d|f61e09b342c44b77b18271ddd1935033|0
+14:fileRealm.properties|1|1523a0e4eda|166|16027f1d|9af3156763c611d7bc820060b0a3b455|0
+19:classloader-filtering.xml|1|1523a0e4f09|188|d7d680be|b54db9f62ed44bd597edfbc406e0e7ea|0
+1e:DefaultAuthenticatorInit.ldift|1|1523a0e4eef|b6e|1263261c|d9a8912e1cc84b52b96dc08106945b9b|0
+d:db_access_cis|2|0|0|0|80ba271a871546ff9a2a25b20f70f919|0
+1b:DefaultRoleMapperInit.ldift|1|1523a0e4ef7|707|80ec7a52|2bf6c8ebdab0476ab6e3c79751266f65|0
+17:SerializedSystemIni.dat|1|1523a0e4ef5|27|4f961218|99c3155763c611d7bc820060b0a3b455|0
+e:db_access_gold|2|0|0|0|b595e66d1f8243c8b15d066710c113a2|0
+d:db_access_csi|2|0|0|0|b5886422c6424c6f83fe48ba67820a55|0
+1a:Oracle3.properties.default|1|1523a0e4f1b|662|69dc1baf|d75b3bc07057462cb5b1d60874a1de2b|0

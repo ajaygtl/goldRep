@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<jonas-ejb-jar xmlns="http://www.objectweb.org/jonas/ns"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.objectweb.org/jonas/ns
+      http://www.objectweb.org/jonas/ns/jonas-ejb-jar_5_1.xsd">
+      
+      <jonas-session>
+        <ejb-name>com.equant.csi.ejb.api.CsiApi</ejb-name>
+        <jndi-name>com.equant.csi.ejb.api.CsiApiHome</jndi-name>
+        <min-pool-size>10</min-pool-size>
+      </jonas-session>
+      <jonas-session>
+      	<ejb-name>com.equant.csi.ejb.biz.ServiceManager</ejb-name>
+      	<jndi-name>com.equant.csi.ejb.biz.ServiceManagerHome</jndi-name>
+      	<min-pool-size>10</min-pool-size>
+      	<jonas-resource>
+            <res-ref-name>db/DataSource</res-ref-name>
+            <jndi-name>CsiDataSource</jndi-name>
+        </jonas-resource>
+      </jonas-session>
+      <!-- mdb commented as part of jonas migration project  -->
+       <jonas-message-driven>
+		<ejb-name>com.equant.csi.ejb.jms.OrderMDBean</ejb-name>
+		<min-pool-size>15</min-pool-size>
+		<jonas-message-driven-destination>
+			<jndi-name>Gold2CsiQueue</jndi-name>
+		</jonas-message-driven-destination>
+		
+	  </jonas-message-driven>
+</jonas-ejb-jar>
+

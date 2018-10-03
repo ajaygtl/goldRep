@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<Message>
+    <Version ServiceId="FRAME_RELAY_TEST" Ordertype="New" Orderstatus="ReleaseOrder"
+        SubbillingAccountId="0" EndUserId="1111" customerId="1111"
+        ContractId="TEST\contract\ID" Orderid="TEST-LONG-FLOAT-001"
+        ExchangeRate="1.0" SiteId="Test Site" OrderSentDate="2003-04-15 11:41:17">
+
+        <System Id="GOLD">
+            <User Name="tester"></User>
+        </System>
+
+        <ServiceElement CreationDate="2003-04-15 11:41:18" Id="GO000000B0"
+            ServiceElementClass="AccessConnection" Name="Primary Access Connection"
+            Description="Primary Access Connection">
+            <Type Category="Modification"></Type>
+            <ServiceElementAttribute Name="Access Connection Name" Value="Primary Access Connection" Status="InProgressNoCurrent">
+                <OnceOffCharge Amount="4.12999999999999989341858963598497211933135986328125"/>
+                <RecurringCharge Amount="4.12999999999999989341858963598497211933135986328125"/>
+            </ServiceElementAttribute>
+            <ServiceElementAttribute Name="Circuit Type" Value="Digital Leased Line" Status="InProgressNoCurrent">
+                <OnceOffCharge Amount="5.13999999999999968025576890795491635799407958984375"/>
+                <RecurringCharge Amount="5.13999999999999968025576890795491635799407958984375"/>
+            </ServiceElementAttribute>
+            <ServiceElementAttribute Name="Circuit Quote Reference" Value="ex" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Termination Interface" Value="V.35-DCE" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Circuit Speed" Value="384 Kbps" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Circuit Ordered by" Value="Equant" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Port Type" Value="Frame Relay" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Port Speed" Value="384 Kbps" Status="InProgressNoCurrent">
+                <OnceOffCharge Amount="6.1500000000000003552713678800500929355621337890625"/>
+                <RecurringCharge Amount="6.1500000000000003552713678800500929355621337890625"/>
+            </ServiceElementAttribute>
+            <ServiceElementAttribute Name="Local DNA Address" Value="dd12222" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Local Customer Defined Code" Value="cdc" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Local User Repertory Name" Value="s223" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="City Centre Code" Value="ALBL01" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Node Name" Value="ss" Status="InProgressNoCurrent"/>
+        </ServiceElement>
+
+        <ServiceElement CreationDate="2003-04-15 11:41:18" Id="BKP::GO000000B0" ServiceElementClass="BackupOptions" Name="ISDN Backup Access Connection" Description="ISDN Backup Access Connection">
+            <Type Category="Modification"/>
+            <ServiceElementAttribute Name="Access Connection Name" Value="Primary Access Connection" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Backup Type" Value="ISDN Dial Line" Status="InProgressNoCurrent">
+                <OnceOffCharge Amount="7.160000000000000142108547152020037174224853515625"/>
+                <RecurringCharge Amount="7.160000000000000142108547152020037174224853515625"/>
+            </ServiceElementAttribute>
+            <ServiceElementAttribute Name="Speed" Value="256 Kbps" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Backup Line Type" Value="BRI" Status="InProgressNoCurrent"/>
+        </ServiceElement>
+        <ServiceElement CreationDate="2003-04-15 11:41:18" Id="sc_1050419663412FRAME_RELAY_PURPLE" ServiceElementClass="ServiceOptions" Name="Service Management" Description="Service Management">
+            <Type Category="Modification"/>
+            <ServiceElementAttribute Name="Service Level" Value="Premium" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Hours of Coverage" Value="Standard: Normal Business Hours" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Response Time" Value="Standard" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Restore Time" Value="Standard (3 hours)" Status="InProgressNoCurrent"/>
+        </ServiceElement>
+        <ServiceElement CreationDate="2003-04-15 11:41:18" Id="GO000001B1" ServiceElementClass="Transport" Name="Primary PVC" Description="Primary PVC">
+            <Type Category="Modification"/>
+            <ServiceElementAttribute Name="Transport Type" Value="Primary PVC" Status="InProgressNoCurrent">
+                <OnceOffCharge Amount="11.199999999999999289457264239899814128875732421875"/>
+                <RecurringCharge Amount="11.199999999999999289457264239899814128875732421875"/>
+            </ServiceElementAttribute>
+            <ServiceElementAttribute Name="Maximum Frame Size" Value="6" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="DLCI numbering plan by" Value="Equant" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Local Management Interface (LMI Type)" Value="Vendor FORUM" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Symmetric" Value="Symmetric PVC" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Billing Option" Value="Flat rate billing" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Local DLCI" Value="663" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Remote DLCI" Value="44" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="CIR" Value="64 Kbps" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Burst Option" Value="Standard" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="EIR" Value="32 Kbps" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Local Access Connection Name" Value="Primary Access Connection" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Local DNA Address" Value="dd12222" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Local Customer Defined Code" Value="cdc" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Local User Repertory Name" Value="s223" Status="InProgressNoCurrent"/>
+            <ServiceElementAttribute Name="Remote Site" Value="GB - t - ttt" Status="InProgressNoCurrent"/>
+        </ServiceElement>
+    </Version>
+</Message>

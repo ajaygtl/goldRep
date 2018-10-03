@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This is a sample Disconnect Frame Relay order
+        - Sent at Release Order state
+  -->
+<Message>
+	<Version Orderid="001008" ContractId="TEST\contract\ID" SiteId="sc_1025278044031" OrderSentDate="2002-06-28" Ordertype="Existing" Orderstatus="ManageOrder" EndUserId="CustID" ServiceId="FRAME_RELAY_PURPLE" ExchangeRate="1.0">
+		<System Id="GOLD">
+			<User Name="tfitzgibbon"/>
+		</System>
+	</Version>
+	<Version Orderid="001008" ContractId="TEST\contract\ID" SiteId="sc_1025278044031" OrderSentDate="2002-06-28" Ordertype="Disconnect" Orderstatus="ManageOrder" EndUserId="CustID" ServiceId="FRAME_RELAY_PURPLE" ExchangeRate="1.0">
+		<System Id="GOLD">
+			<User Name="tfitzgibbon"/>
+		</System>
+		<ServiceElement CreationDate="2002-06-28" Name="acc-pri" Description="Primary Access Connection" ServiceElementClass="AccessConnection" Id="GO000000B0">
+			<Type Category="Disconnect"/>
+		</ServiceElement>
+	</Version>
+</Message>

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" elementFormDefault="qualified" jxb:version="1.0">
+    <xs:element name="Message">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Version" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="Notes" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="DataChanges" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="SiteInformation" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="ConflictNote" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Version">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="System"/>
+                <xs:element ref="ServiceElement" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="Orderid" type="limitedString"/>
+            <xs:attribute name="Ordertype" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="New"/>
+                        <xs:enumeration value="Change"/>
+                        <xs:enumeration value="Disconnect"/>
+                        <xs:enumeration value="Existing"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="Orderstatus" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="ReleaseOrder"/>
+                        <xs:enumeration value="ManageOrder"/>
+                        <xs:enumeration value="CancelOrder"/>
+                        <xs:enumeration value="UnCancelOrder"/>
+                        <xs:enumeration value="Rollback"/>
+                        <xs:enumeration value="ModifyPriceImpact"/>
+                        <xs:enumeration value="ModifyWithoutPriceImpact"/>
+                        <xs:enumeration value="CustomerAcceptsService"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="ContractId" type="limitedString"/>
+            <xs:attribute name="SubbillingAccountId" type="xs:long" default="0"/>
+            <xs:attribute name="SiteId" type="limitedString"/>
+			<xs:attribute name="CoreSiteID" type="limitedString"/>
+			<xs:attribute name="AddressID" type="limitedString"/>
+            <xs:attribute name="customerId" type="limitedString"/>
+            <xs:attribute name="EndUserId" type="limitedString"/>
+            <xs:attribute name="ServiceId" type="limitedString"/>
+            <xs:attribute name="Currency" type="limitedString"/>
+            <xs:attribute name="ExchangeRate" type="doubleType" default="0"/>
+            <xs:attribute name="OrderSentDate" type="dateType"/>
+            <xs:attribute name="LegacyServiceId" type="limitedString"/>
+            <xs:attribute name="LocalCurrency" type="limitedString" use="optional"/>
+            <xs:attribute name="LocalCurrencyExchangeRate" type="doubleType" default="0" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="System">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="User"/>
+            </xs:sequence>
+            <xs:attribute name="Id" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ServiceElement">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Type"/>
+                <xs:element ref="ServiceElementStatus" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="ServiceElementAttribute" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="OnceOffCharge" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="RecurringCharge" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="UsageCharge" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="Id" type="limitedString" use="required"/>
+            <xs:attribute name="UpdatedID" type="limitedString"/>
+            <xs:attribute name="ServiceElementClass" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="AccessConnection"/>
+                        <xs:enumeration value="Transport"/>
+                        <xs:enumeration value="CPE"/>
+                        <xs:enumeration value="BackupOptions"/>
+                        <xs:enumeration value="ServiceOptions"/>
+                        <xs:enumeration value="NASBackup"/>
+                        <xs:enumeration value="LoadBalancingComp"/>
+                        <xs:enumeration value="CSP"/>
+                        <xs:enumeration value="CSPEWVLogin"/>
+                        <xs:enumeration value="CSPEWVCustomer"/>
+                        <xs:enumeration value="CSPESM"/>
+                        <xs:enumeration value="TechnicalParameters"/>
+                        <xs:enumeration value="AdditionalTechnicalParameters"/>
+			<xs:enumeration value="ManualLineItemsComp"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="Name" type="limitedString"/>
+            <xs:attribute name="Description" type="limitedString"/>
+            <xs:attribute name="GrandfatherDate" type="dateType"/>
+            <xs:attribute name="CreationDate" type="dateType"/>
+            <xs:attribute name="ProductId" type="limitedString"/>
+            <xs:attribute name="SourceSystem" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="User">
+        <xs:complexType>
+            <xs:attribute name="Name" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Type">
+        <xs:complexType>
+            <xs:attribute name="Category" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="Creation"/>
+                        <xs:enumeration value="Modification"/>
+                        <xs:enumeration value="Disconnect"/>
+                        <xs:enumeration value="Transfer"/>
+                        <xs:enumeration value="Delete"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ServiceElementStatus">
+        <xs:complexType>
+            <xs:attribute name="status">
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="ReadyForService"/>
+                        <xs:enumeration value="ReadyForBilling"/>
+                        <xs:enumeration value="OrderDisconnect"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="date" type="dateType"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ServiceElementAttribute">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="OnceOffCharge" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="RecurringCharge" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="UsageCharge" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="Name" type="limitedString"/>
+            <xs:attribute name="Value" type="limitedString"/>
+            <xs:attribute name="LocalCurrency" use="optional">
+                <xs:simpleType>
+                    <xs:restriction base="xs:boolean"> 						
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>   	    
+            <xs:attribute name="ChangeTypeCode" type="limitedString"/>
+			<xs:attribute name="CustomerLabel" type="limitedString" use="optional"/>
+            <xs:attribute name="Status">
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="Current"/>
+                        <xs:enumeration value="InProgress"/>
+                        <xs:enumeration value="InProgressNoCurrent"/>
+                        <xs:enumeration value="Delete"/>
+                        <xs:enumeration value="Disconnect"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="RecurringCharge">
+        <xs:complexType>
+            <xs:attribute name="Amount" type="doubleType"/>
+            <xs:attribute name="DiscountCode" type="limitedString"/>
+            <xs:attribute name="ChargeCategoryId" type="limitedString"/>
+            <xs:attribute name="ChangeTypeCode" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UsageCharge">
+        <xs:complexType>
+            <xs:attribute name="ChargeCategoryId" type="limitedString"/>
+            <xs:attribute name="ChangeTypeCode" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="OnceOffCharge">
+        <xs:complexType>
+            <xs:attribute name="ChargeCategoryId" type="limitedString"/>
+            <xs:attribute name="Amount" type="doubleType"/>
+            <xs:attribute name="DiscountCode" type="limitedString"/>
+            <xs:attribute name="ChangeTypeCode" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Notes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Note" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Note">
+        <xs:complexType>
+            <xs:attribute name="Value" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DataChanges">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="SiteHandleChange" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="CustomerHandleChange" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SiteHandleChange">
+        <xs:complexType>
+            <xs:attribute name="OldId" type="limitedString"/>
+			<xs:attribute name="OldCoreId" type="limitedString"/>
+			<xs:attribute name="OldAddressId" type="limitedString"/>
+            <xs:attribute name="UpdatedID" type="limitedString"/>
+			<xs:attribute name="UpdatedCoreID" type="limitedString"/>
+			<xs:attribute name="UpdatedAddressID" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CustomerHandleChange">
+        <xs:complexType>
+            <xs:attribute name="OldId" type="limitedString"/>
+            <xs:attribute name="UpdatedID" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SiteInformation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="SiteContact" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="Services" minOccurs="0" maxOccurs="unbounded"/>
+                <!-- xs:element name="Services" type="limitedString" minOccurs="0" maxOccurs="unbounded"/ -->
+            </xs:sequence>
+            <xs:attribute name="CISSiteId" type="limitedString"/>
+            <xs:attribute name="CustCode" type="limitedString"/>
+            <xs:attribute name="CityCode" type="limitedString"/>
+            <xs:attribute name="CountryCode" type="limitedString"/>
+            <xs:attribute name="PostalCode" type="limitedString"/>
+            <xs:attribute name="StateCode" type="limitedString"/>
+            <xs:attribute name="Address1" type="limitedString"/>
+            <xs:attribute name="Address2" type="limitedString"/>
+            <xs:attribute name="Address3" type="limitedString"/>
+            <xs:attribute name="CreationDate" type="dateType"/>
+            <xs:attribute name="CityName" type="limitedString"/>
+            <xs:attribute name="LocationName" type="limitedString"/>
+            <xs:attribute name="PointLocation" type="limitedString"/>
+            <xs:attribute name="EntryPointLocation" type="limitedString"/>
+            <xs:attribute name="LastModifDate" type="dateType"/>
+			<xs:attribute name="SourceSystem" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SiteContact">
+        <xs:complexType>
+            <xs:attribute name="SiteId" type="limitedString"/>
+            <xs:attribute name="ContactName" type="limitedString"/>
+            <xs:attribute name="TelephoneNumber" type="limitedString"/>
+            <xs:attribute name="FaxNumber" type="limitedString"/>
+            <xs:attribute name="EmailAddress" type="limitedString"/>
+            <xs:attribute name="CreationDate" type="dateType"/>
+            <xs:attribute name="LastModifDate" type="dateType"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Services">
+        <xs:complexType>
+            <xs:attribute name="ServiceName" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ConflictNote">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ServiceSummary" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="Type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="ExceptionReport"/>
+                        <xs:enumeration value="RegularReport"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ServiceSummary">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ServiceElementSummary" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="SiteId" type="limitedString"/>
+            <xs:attribute name="customerId" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ServiceElementSummary">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ServiceElementUSID" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="ServiceId" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ServiceElementUSID">
+        <xs:complexType>
+            <xs:attribute name="USID" type="limitedString"/>
+            <xs:attribute name="SourceSystem" type="limitedString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="dateType">
+        <xs:annotation>
+            <xs:appinfo>
+                <!-- date formatting -->
+                <jxb:javaType name="com.equant.csi.common.TransDate" parseMethod="com.equant.csi.common.TransDate.parseString" printMethod="com.equant.csi.common.TransDate.printToString"/>
+            </xs:appinfo>
+        </xs:annotation>
+        <!-- workaround for date validation issues -->
+        <!-- ToDo: does the date field have exact formatting? -->
+        <xs:restriction base="xs:string">
+            <!-- It should be "yyyy-mm-dd" or "yyyy-MM-dd HH:mm:ss" -->
+            <xs:pattern value="\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="limitedString">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="doubleType">
+        <xs:annotation>
+            <xs:appinfo>
+                <!-- double formatting -->
+                <jxb:javaType name="double" parseMethod="com.equant.csi.common.TransDouble.parseString" printMethod="com.equant.csi.common.TransDouble.printToString"/>
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+</xs:schema>

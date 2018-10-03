@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+vobs\csi\src\java\com\equant\csi\weblogic
+2
+6
+18:LongTestTimeService.java|1|1523a0de7b7|501|acb680af|a06a969119a24a8095b96ac64c45ab92|0
+1e:MBeanRegistrationListener.java|1|1523a0de658|af9|a7939d7c|632d8eb5e51e4a35a3f6550d3cdffb09|0
+18:AbstractTimeService.java|1|1523a0de628|94b|6628c47b|065b08bf2e154361b8c7aeac22e4be84|0
+14:TestTimeService.java|1|1523a0de694|b96|bf948f3d|06f0d5cf956545f7aca78acf99e139cf|0
+15:NotificationData.java|1|1523a0de60f|773|dbdd07a9|3a91d97b150c4bd8a39a30acab131e4f|0
+18:TimerMBeanScheduler.java|1|1523a0de656|43df|a389b347|a7b030d82e6b418db357d153dca91817|0

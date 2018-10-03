@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT Message (Version*, Notes?, DataChanges?, SiteInformation*, ConflictNote?)>
+<!ELEMENT Version (System, ServiceElement*)>
+<!--
+    The XML will be processed differently depending on the order type on the Version
+
+         New - will cause service elements to be created.
+         Change - will contain just those attributes of services elements
+                which will be changed.
+         Disconnect - will contain just the service elements which will be
+                disconnected.
+         Existing - will update the latest "Current" version of an attribute with
+                the specified value.
+
+    Here are the comments for the attributes:
+        Orderid:
+            Corresponds to the Order Number in GOLD
+        Ordertype:
+            Type of order this version refers to
+        Orderstatus:
+            refers to the status of the order which caused this message to be generated
+        SubbillingAccountId:
+            Not Used
+        SiteId:
+            Local Site on the Order
+        customerId:
+            Send the CustomerID
+        EndUserId:
+            Send the DeliveryParty ID
+        Currency:
+            Send the Currency ID
+        ExchangeRate:
+            Send the Exchange Rate on the Order
+        OrderSentDate:
+            Send the date the order is being sent.
+
+-->
+<!ATTLIST Version
+    Orderid CDATA #IMPLIED
+    Ordertype (New | Change | Disconnect | Existing) #REQUIRED
+    Orderstatus ( ReleaseOrder | ManageOrder | CancelOrder | UnCancelOrder | Rollback | ModifyPriceImpact | ModifyWithoutPriceImpact | CustomerAcceptsService ) #REQUIRED
+    ContractId CDATA #IMPLIED
+    SubbillingAccountId CDATA #IMPLIED
+    SiteId CDATA #IMPLIED
+    customerId CDATA #IMPLIED
+    EndUserId CDATA #IMPLIED
+    ServiceId CDATA #IMPLIED
+    Currency CDATA #IMPLIED
+    ExchangeRate CDATA #IMPLIED
+    OrderSentDate CDATA #IMPLIED
+    LegacyServiceId CDATA #IMPLIED
+>
+
+<!--
+    System ID for GOLD is 1
+  -->
+<!ELEMENT System (User)>
+<!ATTLIST System
+    Id CDATA #IMPLIED
+>
+
+<!ELEMENT ServiceElement (Type, ServiceElementStatus*, ServiceElementAttribute*, OnceOffCharge?, RecurringCharge?, UsageCharge?)>
+    <!-- Id:
+            is the unique identifier for this service element, this element is
+            guaranteed to be unique within this order (Service + Site + Customer)
+            Definition of what to place in here is in the GOLD to CSI usecase
+         UpdatedID:
+            is the new Service Element ID to update this to
+         ServiceElementClass:
+            defines what class of service element this is
+         Name:
+            Use the PartNumber of the service element
+         Description:
+            Use the Description of the line item
+         GrandfatherDate:
+            Not a date that is currently in GOLD
+         CreationDate:
+            Not a date that is currently in GOLD - use the same date as
+            OrderSentDate
+         ProductID:
+            Refers to the ServiceId for this Service
+     -->
+<!ATTLIST ServiceElement
+    Id CDATA #REQUIRED
+    UpdatedID CDATA #IMPLIED
+    ServiceElementClass ( AccessConnection | Transport | CPE | BackupOptions | ServiceOptions | NASBackup | CSP | CSPEWVLogin | CSPEWVCustomer | CSPESM | TechnicalParameters | AdditionalTechnicalParameters) #REQUIRED
+    Name CDATA #IMPLIED
+    Description CDATA #IMPLIED
+    GrandfatherDate CDATA #IMPLIED
+    CreationDate CDATA #IMPLIED
+    ProductId CDATA #IMPLIED
+    SourceSystem CDATA #IMPLIED
+>
+
+<!ELEMENT User EMPTY>
+<!--
+    Name:
+        Use the name of the user who triggered this message
+  -->
+<!ATTLIST User
+    Name CDATA #IMPLIED
+>
+
+<!ELEMENT Type EMPTY>
+<!--
+    Name:
+        For NEW order - always Creation
+  -->
+<!ATTLIST Type
+    Category (Creation | Modification | Disconnect | Transfer | Delete) #REQUIRED
+>
+
+<!--
+     ServiceElementStatus are mapped to MileStones in GOLD.
+     Each Service + Version will have multiple ServiceElementStatus'es
+     mapping to the milestones for the order.
+     -->
+<!ELEMENT ServiceElementStatus EMPTY>
+<!ATTLIST ServiceElementStatus
+    status (ReadyForService | ReadyForBilling | OrderDisconnect ) #IMPLIED
+    date CDATA #IMPLIED
+>
+
+<!ELEMENT ServiceElementAttribute (OnceOffCharge?, RecurringCharge?, UsageCharge?)>
+    <!--
+        Name:
+            Name of the Attribute - will not be modified after set
+        Value:
+            Value of the Attribute
+        Status:
+            on the Attribute is returned by CSI to GOLD to denote
+            the type of version the attribute is returned from (whether it is
+            "Current" or "InProgress")
+      -->
+<!ATTLIST ServiceElementAttribute
+    Name CDATA #IMPLIED
+    Value CDATA #IMPLIED
+    ChangeTypeCode CDATA #IMPLIED
+    Status ( Current | InProgress | InProgressNoCurrent ) #IMPLIED
+>
+
+<!ELEMENT RecurringCharge EMPTY>
+<!ATTLIST RecurringCharge
+    Amount CDATA #IMPLIED
+    DiscountCode CDATA #IMPLIED
+    ChargeCategoryId CDATA #IMPLIED
+    ChangeTypeCode CDATA #IMPLIED
+>
+
+<!ELEMENT UsageCharge EMPTY>
+<!ATTLIST UsageCharge
+    ChargeCategoryId CDATA #IMPLIED
+    ChangeTypeCode CDATA #IMPLIED
+>
+
+<!ELEMENT OnceOffCharge EMPTY>
+<!ATTLIST OnceOffCharge
+    ChargeCategoryId CDATA #IMPLIED
+    Amount CDATA #IMPLIED
+    DiscountCode CDATA #IMPLIED
+    ChangeTypeCode CDATA #IMPLIED
+>
+
+<!ELEMENT Notes (Note*)>
+<!ELEMENT Note EMPTY>
+<!ATTLIST Note
+    Value CDATA #IMPLIED
+>
+
+<!ELEMENT DataChanges (SiteHandleChange*, CustomerHandleChange*)>
+<!ELEMENT SiteHandleChange EMPTY>
+<!ATTLIST SiteHandleChange
+    OldId CDATA #REQUIRED
+    UpdatedID CDATA #REQUIRED
+>
+<!ELEMENT CustomerHandleChange EMPTY>
+<!ATTLIST CustomerHandleChange
+    OldId CDATA #REQUIRED
+    UpdatedID CDATA #REQUIRED
+>
+
+<!ELEMENT SiteInformation (SiteContact*, Services*)>
+<!ATTLIST SiteInformation
+    CISSiteId CDATA #IMPLIED
+    CustCode CDATA #IMPLIED
+    CityCode CDATA #IMPLIED
+    CountryCode CDATA #IMPLIED
+    PostalCode CDATA #IMPLIED
+    StateCode CDATA #IMPLIED
+    Address1 CDATA #IMPLIED
+    Address2 CDATA #IMPLIED
+    Address3 CDATA #IMPLIED
+    CreationDate CDATA #IMPLIED
+    CityName CDATA #IMPLIED
+    LocationName CDATA #IMPLIED
+    PointLocation CDATA #IMPLIED
+    EntryPointLocation CDATA #IMPLIED
+    LastModifDate CDATA #IMPLIED
+    SourceSystem CDATA #IMPLIED
+>
+
+<!ELEMENT SiteContact EMPTY>
+<!ATTLIST SiteContact
+    SiteId CDATA #IMPLIED
+    ContactName CDATA #IMPLIED
+    TelephoneNumber CDATA #IMPLIED
+    FaxNumber CDATA #IMPLIED
+    EmailAddress CDATA #IMPLIED
+    CreationDate CDATA #IMPLIED
+    LastModifDate CDATA #IMPLIED
+>
+
+<!ELEMENT Services EMPTY>
+<!ATTLIST Services
+    ServiceName CDATA #IMPLIED
+>
+
+<!ELEMENT ConflictNote (ServiceSummary+)>
+<!ATTLIST ConflictNote
+    Type ( ExceptionReport | RegularReport ) #REQUIRED
+>
+
+<!ELEMENT ServiceSummary (ServiceElementSummary+)>
+<!ATTLIST ServiceSummary
+    SiteId CDATA #IMPLIED
+    customerId CDATA #IMPLIED
+>
+
+<!ELEMENT ServiceElementSummary (ServiceElementUSID+)>
+<!ATTLIST ServiceElementSummary
+    ServiceId CDATA #IMPLIED
+>
+
+<!ELEMENT ServiceElementUSID EMPTY>
+<!ATTLIST ServiceElementUSID
+    USID CDATA #IMPLIED
+    SourceSystem CDATA #IMPLIED
+>
+
+

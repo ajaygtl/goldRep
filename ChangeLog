@@ -1,0 +1,22 @@
+Version 2.0.0
+  Apr 21, 2003
+        - Migrate all functionality from JDO to JDBC
+        - Upgrade ANT libraries to 1.5.3
+        - Fix config.xml to include database failover settings
+        - Relocate all logs to config/WL_DOMAIN/logs directory
+        - Add PowerDesigner database physical model
+        - Oracle sequences for all tables opposite table
+        - More index for database perfomance
+        - Remove com.equant.client from regular build and deployment
+        - Remove com.equant.client from production build and deployment
+        - Remove JDOUtils class
+        - Upgrade JAXB libraries to 1.0 final.
+        - Add JDBCUtils class with JDBC common functionality
+        - Fix Message.xsd to fit final JAXB specification.
+        - Add TransDouble class which is responsible for correct representation of double type in String.
+        - Fix CSILogger configuration functionality.
+        - Add more properties into ant.properties to configure CSILogger.
+        - Implement failed JMS messages counter.
+        - Add properties into ant.properties to configure JMS messages counter.
+        - Fix test-5-query.xml which fails the test.
+        - Add test-float-new-release.xml to test proper double/float to String type conversion.
