@@ -1,0 +1,10 @@
+public class HelloTesting {
+
+int argument = 9;
+
+public void main(String argument[])
+{
+System.out.println("Hello testing argument:" + argument);
+}
+
+}
