@@ -1,6 +1,7 @@
 package com.equant.csi.client;
 
 /* Adding one more comment to check if integration on Jenkins working.
+ * Hello
  * $Author: sergiy.meshkov $ $Date: 2002/11/19 14:38:43 $
  *
  *
